@@ -1,6 +1,5 @@
 public class User {
     private long user_id;
-    private int reservas;
 
     public User(long user_id) {
         this.user_id = user_id;
@@ -14,11 +13,4 @@ public class User {
         this.user_id = user_id;
     }
 
-    public int getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(int reservas) {
-        this.reservas = reservas;
-    }
 }
