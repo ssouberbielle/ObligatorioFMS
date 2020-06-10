@@ -25,14 +25,14 @@ public class Main {
             int respuesta = scanner.nextInt();
             switch (respuesta) {
                 case 1:
-                   /* Reader in = new FileReader("Users/tatosouber/Desktop/fuentedatos/books.csv");
+                   /* Reader in = new FileReader("/fuentedatos/books.csv");
                     Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
                     for (CSVRecord record : records) {
                         String book_id = record.get("Last Name");
                         String firstName = record.get("First Name");
                     } */
 
-                    Reader in = new FileReader("/Users/tatosouber/Desktop/fuentedatos/books.csv");
+                    Reader in = new FileReader("books.csv");
                     Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(in);
                     for (CSVRecord record : records) {
                         String bookid = record.get(0);
