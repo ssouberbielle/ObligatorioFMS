@@ -6,6 +6,7 @@ public class Book {
     private String title;
     private String language;
     private String image_url;
+    private int cantidadReservas;
 
     public Book(long book_id, String isbn, int publication_year, String originalTitle,
                 String title, String language, String image_url) {
@@ -73,5 +74,13 @@ public class Book {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    public int getCantidadReservas() {
+        return cantidadReservas;
+    }
+
+    public void setCantidadReservas(int cantidadReservas) {
+        this.cantidadReservas = cantidadReservas;
     }
 }
