@@ -1,11 +1,8 @@
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 public class Main {
@@ -25,17 +22,12 @@ public class Main {
             int respuesta = scanner.nextInt();
             switch (respuesta) {
                 case 1:
-                   /* Reader in = new FileReader("/fuentedatos/books.csv");
-                    Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
-                    for (CSVRecord record : records) {
-                        String book_id = record.get("Last Name");
-                        String firstName = record.get("First Name");
-                    } */
-
+                    int i = 0;
+                    Book libros[] = new Book [10000];
                     Reader in = new FileReader("books.csv");
                     Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(in);
                     for (CSVRecord record : records) {
-                        String bookid = record.get(0);
+                        String book_id = record.get(0);
                         String isbn = record.get(1);
                         String authors = record.get(2);
                         String original_publication_year = record.get(3);
@@ -43,17 +35,14 @@ public class Main {
                         String title = record.get(5);
                         String language = record.get(6);
                         String image_url = record.get(7);
+                        //check carga de datos
+                        Book book = new Book(book_id, isbn, authors, original_publication_year, original_title, title, language, image_url);
+                        libros[i] = book;
+                        i ++;
                     }
-
+                    System.out.println(libros[10]);
                    /* final Appendable out =
                     final CSVPrinter printer = CSVFormat.DEFAULT.withHeader("H1", "H2").print(out); */
-
-
-
-
-
-
-
 
 
                     menu();
@@ -70,13 +59,13 @@ public class Main {
                     switch (respuesta) {
                         case 1: //consulta 1
                             break;
-                        case 2: //consulta 1
+                        case 2: //consulta 2
                             break;
-                        case 3: //consulta 1
+                        case 3: //consulta 3
                             break;
-                        case 4: //consulta 1
+                        case 4: //consulta 4
                             break;
-                        case 5: //consulta 1
+                        case 5: //consulta 5
                             break;
                         case 6:
                             run = false;

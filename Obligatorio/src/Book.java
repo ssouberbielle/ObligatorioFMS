@@ -1,31 +1,35 @@
 public class Book {
-    private long book_id;
+    private String bookid;
     private String isbn;
-    private int publication_year;
-    private String originalTitle;
+    private String authors;
+    private String original_publication_year;
+    private String original_title;
     private String title;
     private String language;
     private String image_url;
     private int cantidadReservas;
 
-    public Book(long book_id, String isbn, int publication_year, String originalTitle,
+
+
+    public Book(String bookid, String isbn, String authors, String original_publication_year, String original_title,
                 String title, String language, String image_url) {
-        this.book_id = book_id;
+        this.bookid = bookid;
         this.isbn = isbn;
-        this.publication_year = publication_year;
-        this.originalTitle = originalTitle;
+        this.authors = authors;
+        this.original_publication_year = original_publication_year;
+        this.original_title = original_title;
         this.title = title;
         this.language = language;
         this.image_url = image_url;
     }
 
 
-    public long getBook_id() {
-        return book_id;
+    public String getBook_id() {
+        return bookid;
     }
 
-    public void setBook_id(long book_id) {
-        this.book_id = book_id;
+    public void setBook_id(String bookid) {
+        this.bookid = bookid;
     }
 
     public String getIsbn() {
@@ -36,20 +40,27 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public int getPublication_year() {
-        return publication_year;
+    public String getAuthors() {
+        return authors;
     }
 
-    public void setPublication_year(int publication_year) {
-        this.publication_year = publication_year;
+    public void setAuthors(String authors) {
+        this.authors = authors;
     }
 
+    public String getOriginal_publication_year() {
+        return original_publication_year;
+    }
+
+    public void setOriginal_publication_year(String original_publication_year) {
+        this.original_publication_year = original_publication_year;
+    }
     public String getOriginalTitle() {
-        return originalTitle;
+        return original_title;
     }
 
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
+    public void setOriginalTitle(String original_title) {
+        this.original_title = original_title;
     }
 
     public String getTitle() {

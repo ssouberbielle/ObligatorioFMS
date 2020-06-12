@@ -1,7 +1,7 @@
 public class LibraryImpl implements Library {
 
-    public void addBook(long book_id, String isbn, int publication_year, String originalTitle, String title, String language, String image_url) {
-        Book book = new Book(book_id, isbn, publication_year, originalTitle, title, language, image_url);
+    public static void addBook(String bookid, String isbn, String authors, String original_publication_year,String original_title, String title, String language, String image_url) {
+        Book book = new Book(bookid, isbn, authors, original_publication_year, original_title, title, language, image_url);
     }
 
     public void addRating(long user_id, long book_id, int rating) {
