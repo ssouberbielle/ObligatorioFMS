@@ -8,6 +8,7 @@ import org.apache.commons.csv.CSVRecord;
 public class Main {
     public static void main(String[] args) throws IOException {
         menu();
+
     }
 
 
@@ -22,27 +23,13 @@ public class Main {
             int respuesta = scanner.nextInt();
             switch (respuesta) {
                 case 1:
-                    int i = 0;
-                    Book libros[] = new Book [10000];
-                    Reader in = new FileReader("books.csv");
-                    Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(in);
-                    for (CSVRecord record : records) {
-                        String book_id = record.get(0);
-                        String isbn = record.get(1);
-                        String authors = record.get(2);
-                        String original_publication_year = record.get(3);
-                        String original_title = record.get(4);
-                        String title = record.get(5);
-                        String language = record.get(6);
-                        String image_url = record.get(7);
-                        //check carga de datos
-                        Book book = new Book(book_id, isbn, authors, original_publication_year, original_title, title, language, image_url);
-                        libros[i] = book;
-                        i ++;
-                    }
-                    System.out.println(libros[10]);
-                   /* final Appendable out =
-                    final CSVPrinter printer = CSVFormat.DEFAULT.withHeader("H1", "H2").print(out); */
+                    Book [] libros = LibraryImpl.loadBooks();
+                    System.out.println(libros[100].getTitle());
+
+
+
+
+
 
 
                     menu();
