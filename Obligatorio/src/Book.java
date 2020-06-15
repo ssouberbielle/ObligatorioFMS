@@ -1,17 +1,17 @@
 public class Book {
-    private String bookid;
+    private long bookid;
     private String isbn;
     private String authors;
-    private String original_publication_year;
+    private int original_publication_year;
     private String original_title;
     private String title;
     private String language;
     private String image_url;
-    private int cantidadReservas;
 
 
 
-    public Book(String bookid, String isbn, String authors, String original_publication_year, String original_title,
+
+    public Book(long bookid, String isbn, String authors, int original_publication_year, String original_title,
                 String title, String language, String image_url) {
         this.bookid = bookid;
         this.isbn = isbn;
@@ -24,11 +24,11 @@ public class Book {
     }
 
 
-    public String getBook_id() {
+    public long getBook_id() {
         return bookid;
     }
 
-    public void setBook_id(String bookid) {
+    public void setBook_id(long bookid) {
         this.bookid = bookid;
     }
 
@@ -48,11 +48,11 @@ public class Book {
         this.authors = authors;
     }
 
-    public String getOriginal_publication_year() {
+    public int getOriginal_publication_year() {
         return original_publication_year;
     }
 
-    public void setOriginal_publication_year(String original_publication_year) {
+    public void setOriginal_publication_year(int original_publication_year) {
         this.original_publication_year = original_publication_year;
     }
     public String getOriginalTitle() {
@@ -87,11 +87,4 @@ public class Book {
         this.image_url = image_url;
     }
 
-    public int getCantidadReservas() {
-        return cantidadReservas;
-    }
-
-    public void setCantidadReservas(int cantidadReservas) {
-        this.cantidadReservas = cantidadReservas;
-    }
 }

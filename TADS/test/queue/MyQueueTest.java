@@ -3,7 +3,7 @@ package queue;
 import exceptions.ColaVaciaException;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 class MyQueueTest {
 
