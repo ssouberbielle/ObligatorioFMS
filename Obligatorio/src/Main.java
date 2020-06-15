@@ -2,6 +2,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Scanner;
+
+import LinkedList.LinkedList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
@@ -24,14 +26,9 @@ public class Main {
             switch (respuesta) {
                 case 1:
                     Book [] libros = LibraryImpl.loadBooks();
+                    LinkedList<User> users = LibraryImpl.loadUser();
                     System.out.println(libros[100].getTitle());
-
-
-
-
-
-
-
+                    System.out.println(users.getSize());
                     menu();
                     break;
                 case 2:
