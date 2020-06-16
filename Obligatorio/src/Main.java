@@ -4,6 +4,7 @@ import java.io.Reader;
 import java.util.Scanner;
 
 import LinkedList.LinkedList;
+import hash.OpenHash;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
@@ -26,10 +27,11 @@ public class Main {
             switch (respuesta) {
                 case 1:
                     Book [] libros = LibraryImpl.loadBooks();
-                    LinkedList<User> users = LibraryImpl.loadUser();
+                    OpenHash<Long,Long> reserves = LibraryImpl.loadReserves();
                     System.out.println(libros[100].getTitle());
-                    System.out.println(users.getSize());
-                    menu();
+                    System.out.println(reserves.getSize());
+                    System.out.println(reserves.getList(11l).getSize()); //deberia devolverme 1 ya que el user_id7
+                    menu();                                                 // reserva un soloNO FUNCIONA
                     break;
                 case 2:
                     System.out.println("1. Indicar el Top 10 de libros que más lecturas tienen por parte de usuarios.");

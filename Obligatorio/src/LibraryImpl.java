@@ -1,7 +1,7 @@
 import LinkedList.LinkedList;
+import hash.OpenHash;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -32,9 +32,10 @@ public class LibraryImpl implements Library {
             } catch (NumberFormatException e) {
                 year = 0;
             }
+
             long idBook;
             try {
-                idBook = Integer.parseInt(book_id);
+                idBook = Long.parseLong(book_id);
             } catch (NumberFormatException e) {
                 idBook = 0;
             }
@@ -75,27 +76,31 @@ public class LibraryImpl implements Library {
     public void topTwentyPublication() {
     }
 
-    public static LinkedList<User> loadUser() throws IOException {
-        LinkedList<User> users = new LinkedList<User>();
+    public static OpenHash<Long,Long> loadReserves() throws IOException {
+        OpenHash<Long,Long> reserves = new OpenHash<Long,Long>(10000);
         Reader in = new FileReader("fuentedatos/to_read.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(in);
         for (CSVRecord record : records) {
             String user_id = record.get(0);
+            String book_id = record.get(1);
+
             long idUser;
             try {
                 idUser = Long.parseLong(user_id);
             } catch (NumberFormatException e) {
                 idUser = 0;
             }
-            User user = new User(idUser);
-            if (users.contains(user)) {
-                continue;
-                 // se estan haciendo usuarios repetidos
+            long idBook;
+            try {
+                idBook = Long.parseLong(book_id);
+            } catch (NumberFormatException e) {
+                idBook = 0;
             }
-            users.add(user);
+            User user = new User(idUser);
+            reserves.put(idUser,idBook);
 
         }
-        return users;
+        return reserves;
 
     }
 }

@@ -86,6 +86,15 @@ public class OpenHash<K,V> implements MyHash<K ,V> {
         return valueToReturn;
     }
 
+    public MyList<HashNode<K, V>> getList(K k) {
+        int position = hashcode(k);
+
+        MyList<HashNode<K, V>> list = entryArray[position];
+
+
+
+        return list;
+    }
     @Override
     public void remove(K k) {
         int position = hashcode(k);
