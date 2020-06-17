@@ -1,7 +1,7 @@
 public class Book {
     private long bookid;
     private String isbn;
-    private String authors;
+    private Author authors;
     private int original_publication_year;
     private String original_title;
     private String title;
@@ -11,7 +11,7 @@ public class Book {
 
 
 
-    public Book(long bookid, String isbn, String authors, int original_publication_year, String original_title,
+    public Book(long bookid, String isbn, Author authors, int original_publication_year, String original_title,
                 String title, String language, String image_url) {
         this.bookid = bookid;
         this.isbn = isbn;
@@ -40,11 +40,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getAuthors() {
+    public Author getAuthors() {
         return authors;
     }
 
-    public void setAuthors(String authors) {
+    public void setAuthors(Author authors) {
         this.authors = authors;
     }
 

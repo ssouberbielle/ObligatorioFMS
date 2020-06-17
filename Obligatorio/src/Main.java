@@ -1,18 +1,9 @@
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.Scanner;
-
-import LinkedList.LinkedList;
-import hash.ClosedHash;
-import hash.OpenHash;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         menu();
-
     }
 
 
@@ -27,14 +18,10 @@ public class Main {
             int respuesta = scanner.nextInt();
             switch (respuesta) {
                 case 1:
-
-                    Book [] libros = LibraryImpl.loadBooks();
-                    OpenHash<Long,User> users = LibraryImpl.loadUsers();
-
-                    //System.out.println(users.getList(78l).getSize());// siempre 3, supongo son los atributos
-                    System.out.println(users.get(51l).getReserves().getSize());
-
-                    menu();                                                 // reserva un soloNO FUNCIONA
+                    Book[] books = LibraryImpl.loadBooks();
+                    LibraryImpl.loadUsers();
+                  //System.out.println(books[0].getAuthors().getName()); Verifico que se obtienen los autores.
+                    System.out.println("Carga de datos realizada.");
                     break;
                 case 2:
                     System.out.println("1. Indicar el Top 10 de libros que más lecturas tienen por parte de usuarios.");

@@ -25,21 +25,11 @@ public class LibraryImpl implements Library {
             String language = record.get(6);
             String image_url = record.get(7);
 
-            int year;
-            try {
-                year = Integer.parseInt(original_publication_year);
-            } catch (NumberFormatException e) {
-                year = 0;
-            }
+            int year = Integer.parseInt(original_publication_year);
+            long idBook = Long.parseLong(book_id);
 
-            long idBook;
-            try {
-                idBook = Long.parseLong(book_id);
-            } catch (NumberFormatException e) {
-                idBook = 0;
-            }
-
-            Book book = new Book(idBook, isbn, authors, year, original_title, title, language, image_url);
+            Author author = new Author(authors);
+            Book book = new Book(idBook, isbn, author, year, original_title, title, language, image_url);
             libros[i] = book;
             i++;
         }
