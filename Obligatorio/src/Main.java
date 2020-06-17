@@ -4,6 +4,7 @@ import java.io.Reader;
 import java.util.Scanner;
 
 import LinkedList.LinkedList;
+import hash.ClosedHash;
 import hash.OpenHash;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -27,10 +28,11 @@ public class Main {
             switch (respuesta) {
                 case 1:
                     Book [] libros = LibraryImpl.loadBooks();
-                    OpenHash<Long,Long> reserves = LibraryImpl.loadReserves();
+                    OpenHash<Long,User> users = LibraryImpl.loadUsers();
                     System.out.println(libros[100].getTitle());
-                    System.out.println(reserves.getSize());
-                    System.out.println(reserves.getList(11l).getSize()); //deberia devolverme 1 ya que el user_id7
+                    System.out.println(users.getSize());
+                    System.out.println(users.get(7l).getReserves().getSize());
+                    System.out.println(users.get(24420l).getRatings().getSize());
                     menu();                                                 // reserva un soloNO FUNCIONA
                     break;
                 case 2:

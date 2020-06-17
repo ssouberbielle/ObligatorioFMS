@@ -9,6 +9,8 @@ import java.io.Reader;
 
 public class User {
     private long user_id;
+    private LinkedList<Long> reserves = new LinkedList<Long>();
+    private LinkedList<Rating> ratings = new LinkedList<Rating>();
 
     public User(long user_id) {
         this.user_id = user_id;
@@ -23,5 +25,19 @@ public class User {
     }
 
 
-
+    public LinkedList<Long> getReserves() {
+        return reserves;
     }
+
+    public void setReserves(LinkedList<Long> reserves) {
+        this.reserves = reserves;
+    }
+
+    public LinkedList<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(LinkedList<Rating> ratings) {
+        this.ratings = ratings;
+    }
+}

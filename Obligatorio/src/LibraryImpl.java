@@ -76,8 +76,9 @@ public class LibraryImpl implements Library {
     public void topTwentyPublication() {
     }
 
-    public static OpenHash<Long,Long> loadReserves() throws IOException {
-        OpenHash<Long,Long> reserves = new OpenHash<Long,Long>(10000);
+    public static OpenHash<Long,User> loadUsers() throws IOException {
+        boolean primero = true;
+        OpenHash<Long,User> users = new OpenHash<Long,User>(10000);
         Reader in = new FileReader("fuentedatos/to_read.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(in);
         for (CSVRecord record : records) {
@@ -96,11 +97,71 @@ public class LibraryImpl implements Library {
             } catch (NumberFormatException e) {
                 idBook = 0;
             }
-            User user = new User(idUser);
-            reserves.put(idUser,idBook);
+            if(primero == false) {
+                User user = new User(idUser);
+
+                if (users.contains(idUser)) { // PROBAMOS
+                    user = users.get(idUser);
+                } else {
+
+                    users.put(idUser, user);
+                }
+                user.getReserves().add(idBook);
+
+            }
+         primero = false;
 
         }
-        return reserves;
 
+        primero = true;
+        Reader in2 = new FileReader("fuentedatos/ratings.csv");
+        Iterable<CSVRecord> records2 = CSVFormat.RFC4180.parse(in2);
+        for (CSVRecord record : records2) {
+            String user_id2 = record.get(0);
+            String book_id2 = record.get(1);
+            String rating = record.get(2);
+
+            long idUser2;
+            try {
+                idUser2 = Long.parseLong(user_id2);
+            } catch (NumberFormatException e) {
+                idUser2 = 0;
+            }
+            long idBook2;
+            try {
+                idBook2 = Long.parseLong(book_id2);
+            } catch (NumberFormatException e) {
+                idBook2 = 0;
+            }
+
+            int rati;
+            try{
+                rati = Integer.parseInt(rating);
+            } catch (NumberFormatException e) {
+                rati = 0;
+            }
+
+            if(primero == false){
+                Rating rating1 = new Rating(rati,idBook2);
+                User temp = new User(idUser2);
+
+                if (users.contains(idUser2)) {
+                    temp = users.get(idUser2);
+                } else {
+                    users.put(idUser2, temp);
+                }
+                temp.getRatings().add(rating1);
+
+
+
+            }
+
+            primero = false;
+
+
+        }
+        return users;
     }
+
+
 }
