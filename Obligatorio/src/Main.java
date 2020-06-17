@@ -27,12 +27,13 @@ public class Main {
             int respuesta = scanner.nextInt();
             switch (respuesta) {
                 case 1:
+
                     Book [] libros = LibraryImpl.loadBooks();
                     OpenHash<Long,User> users = LibraryImpl.loadUsers();
-                    System.out.println(libros[0].getTitle());
-                    System.out.println(users.getSize());
-                    System.out.println(users.get(7l).getReserves().getSize());
-                    System.out.println(users.get(2l).getRatings().getSize());
+
+                    //System.out.println(users.getList(78l).getSize());// siempre 3, supongo son los atributos
+                    System.out.println(users.get(51l).getReserves().getSize());
+
                     menu();                                                 // reserva un soloNO FUNCIONA
                     break;
                 case 2:

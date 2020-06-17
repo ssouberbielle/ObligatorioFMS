@@ -84,7 +84,7 @@ public class LibraryImpl implements Library {
     }
 
     public static OpenHash<Long, User> loadUsers() throws IOException {
-        OpenHash<Long, User> users = new OpenHash<Long, User>(10000);
+        OpenHash<Long, User> users = new OpenHash<Long, User>(28000);
         Reader in = new FileReader("fuentedatos/to_read.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
         for (CSVRecord record : records) {
@@ -98,6 +98,8 @@ public class LibraryImpl implements Library {
 
             if (users.contains(idUser)) { // PROBAMOS
                 user = users.get(idUser);
+
+
             } else {
 
                 users.put(idUser, user);
@@ -108,10 +110,11 @@ public class LibraryImpl implements Library {
 
         Reader in2 = new FileReader("fuentedatos/ratings.csv");
         Iterable<CSVRecord> records2 = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in2);
+        int n = 0;
         for (CSVRecord record : records2) {
-            String user_id2 = record.get(0);
-            String book_id2 = record.get(1);
-            String rating = record.get(2);
+            String user_id2 = record.get("user_id");
+            String book_id2 = record.get("book_id");
+            String rating = record.get("rating");
 
 
             long idUser2 = Long.parseLong(user_id2);
@@ -123,7 +126,7 @@ public class LibraryImpl implements Library {
 
             if (users.contains(idUser2)) {
                 temp = users.get(idUser2);
-            } else {
+            }else {
                 users.put(idUser2, temp);
             }
             temp.getRatings().add(rating1);
