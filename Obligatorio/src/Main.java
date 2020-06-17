@@ -29,10 +29,10 @@ public class Main {
                 case 1:
                     Book [] libros = LibraryImpl.loadBooks();
                     OpenHash<Long,User> users = LibraryImpl.loadUsers();
-                    System.out.println(libros[100].getTitle());
+                    System.out.println(libros[0].getTitle());
                     System.out.println(users.getSize());
                     System.out.println(users.get(7l).getReserves().getSize());
-                    System.out.println(users.get(24420l).getRatings().getSize());
+                    System.out.println(users.get(2l).getRatings().getSize());
                     menu();                                                 // reserva un soloNO FUNCIONA
                     break;
                 case 2:
