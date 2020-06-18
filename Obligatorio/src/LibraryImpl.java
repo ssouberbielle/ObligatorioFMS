@@ -1,4 +1,5 @@
 import LinkedList.LinkedList;
+import hash.ClosedHashImpl;
 import hash.HashNode;
 import hash.OpenHash;
 import org.apache.commons.csv.CSVFormat;
@@ -7,12 +8,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Iterator;
+
+import LinkedList.MyIteratorLinkedList;
 
 public class LibraryImpl implements Library {
 
-    public static Book[] loadBooks() throws IOException, FileNotFoundException {
+    public Book[] books = new Book [10000];
+    ClosedHashImpl<Long, User> users = new ClosedHashImpl<Long, User>(28000);
+
+    public Book[] loadBooks() throws IOException, FileNotFoundException {
         int i = 0;
-        Book libros[] = new Book[10000];
         Reader in = new FileReader("fuentedatos/books.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
         for (CSVRecord record : records) {
@@ -30,10 +36,12 @@ public class LibraryImpl implements Library {
 
             Author author = new Author(authors);
             Book book = new Book(idBook, isbn, author, year, original_title, title, language, image_url);
-            libros[i] = book;
+            books[i] = book;
             i++;
+
+            author.getBooks().add(book); // agregar libros a sus respectivos autores
         }
-        return libros;
+        return books;
 
     }
 
@@ -49,7 +57,21 @@ public class LibraryImpl implements Library {
 
     @Override
     public void topTenReservation() {
+        int[] cuenta = new int [10000];
+        for (int usr = 0; usr < users.getSize(); usr++){ // forma rustica de buscar las keys, no se si hay agujeros
+            LinkedList<Long> list = users.get((long) usr).getReserves();
+            MyIteratorLinkedList<Long> iterator = new MyIteratorLinkedList<Long>(list.getFirst());
+            while (iterator.hasNext()){
+                cuenta[ (iterator.getNodo().getValue().intValue())-1]++;
+                //cuenta.sort
+                //sacar 10 de arriba
 
+
+            }
+
+
+
+        }
 
     }
 
@@ -73,8 +95,7 @@ public class LibraryImpl implements Library {
     public void topTwentyPublication() {
     }
 
-    public static OpenHash<Long, User> loadUsers() throws IOException {
-        OpenHash<Long, User> users = new OpenHash<Long, User>(28000);
+    public ClosedHashImpl<Long, User> loadUsers() throws IOException {
         Reader in = new FileReader("fuentedatos/to_read.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
         for (CSVRecord record : records) {
@@ -86,7 +107,7 @@ public class LibraryImpl implements Library {
 
             User user = new User(idUser);
 
-            if (users.contains(idUser)) { // PROBAMOS
+            if (users.get(idUser) != null) { // PROBAMOS
                 user = users.get(idUser);
 
 
@@ -114,7 +135,7 @@ public class LibraryImpl implements Library {
             Rating rating1 = new Rating(rati, idBook2);
             User temp = new User(idUser2);
 
-            if (users.contains(idUser2)) {
+            if (users.get(idUser2) != null) {
                 temp = users.get(idUser2);
             }else {
                 users.put(idUser2, temp);
