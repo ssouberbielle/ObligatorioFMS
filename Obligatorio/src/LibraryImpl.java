@@ -9,15 +9,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Iterator;
+import nodo.Node;
+import Sort.Merge;
 
 import LinkedList.MyIteratorLinkedList;
 
 public class LibraryImpl implements Library {
 
-    public Book[] books = new Book [10000];
-    ClosedHashImpl<Long, User> users = new ClosedHashImpl<Long, User>(28000);
+    private static Book[] books = new Book [10000];
+    private static ClosedHashImpl<Long,User> users = new ClosedHashImpl<Long,User>(28000);
 
-    public Book[] loadBooks() throws IOException, FileNotFoundException {
+
+    public static Book[] loadBooks() throws IOException, FileNotFoundException {
         int i = 0;
         Reader in = new FileReader("fuentedatos/books.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
@@ -55,30 +58,36 @@ public class LibraryImpl implements Library {
 
     }
 
-    @Override
-    public void topTenReservation() {
-        int[] cuenta = new int [10000];
+    public static void topTenReservation() {
+
+        int [] count = new int [10000];
         for (int usr = 0; usr < users.getSize(); usr++){ // forma rustica de buscar las keys, no se si hay agujeros
-            LinkedList<Long> list = users.get((long) usr).getReserves();
+            LinkedList<Long> list = users.get((long) usr).getReserves(); //lista de reservas de usuario actual
             MyIteratorLinkedList<Long> iterator = new MyIteratorLinkedList<Long>(list.getFirst());
-            while (iterator.hasNext()){
-                cuenta[ (iterator.getNodo().getValue().intValue())-1]++;
-                //cuenta.sort
-                //sacar 10 de arriba
 
-
+            while (iterator.hasNext()) {
+                count[(iterator.getNodo().getValue().intValue()) - 1]++; // suma 1 a la posicio
+                // n correspondiente a la del libro en el vector de libros
             }
+                int []index = count.clone();
+                Merge.mergeSort(index,index.length);
+                for (int i = 0; i < 10; i++){
+                    int amount = index[index.length - i - 1];
+                    for (int a : count){
+                        if (count[a] == amount){
+                            String title = books[a].getTitle();
+                            System.out.println("Id del libro " + a);
+                            System.out.println("Titulo " + title);
+                            System.out.println("Cantidad " + amount);
+                        }
+                    }
 
-
-
+                }
         }
 
     }
 
-    public void topTenReservation(Book[] libros, OpenHash<Long, User> users) {
-      //  for (HashNode<Long, User> tempUser: users)
 
-    }
 
     public void topTwentyReservation() {
 
@@ -95,7 +104,7 @@ public class LibraryImpl implements Library {
     public void topTwentyPublication() {
     }
 
-    public ClosedHashImpl<Long, User> loadUsers() throws IOException {
+    public static ClosedHashImpl<Long, User> loadUsers() throws IOException {
         Reader in = new FileReader("fuentedatos/to_read.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
         for (CSVRecord record : records) {
