@@ -7,13 +7,42 @@ import java.util.Iterator;
 
 public class LinkedList<t> implements MyList<t> {
 
-    private Node<t> primero;
-    private Node<t> ultimo;
+    private Node<t> first;
+    private Node<t> last;
     private int size;
+    private t value;
+
+    public t getValue() {
+        return value;
+    }
+
+    public void setValue(t value) {
+        this.value = value;
+    }
+
+    public Node<t> getFirst() {
+        return first;
+    }
+
+    public void setFirst(Node<t> first) {
+        this.first = first;
+    }
+
+    public Node<t> getLast() {
+        return last;
+    }
+
+    public void setLast(Node<t> last) {
+        this.last = last;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public LinkedList(){
-        this.primero = null;
-        this.ultimo = null;
+        this.first = null;
+        this.last = null;
         size = 0;
     }
 
@@ -31,11 +60,11 @@ public class LinkedList<t> implements MyList<t> {
     public void remove(int position) throws Exception {
         if (!isEmpty()){
             if(position == 1){
-                Node<t> aux = primero;
-                primero = aux.getSiguiente();
+                Node<t> aux = first;
+                first = aux.getSiguiente();
                 size -= 1;
             }else {
-                Node<t> temp1 = primero;
+                Node<t> temp1 = first;
                 Node<t> temp2 = temp1.getSiguiente();
                 int contador = 1;
                 while((contador+1) != position){
@@ -55,7 +84,7 @@ public class LinkedList<t> implements MyList<t> {
 
     public t get(int position) {
         int contador = 0;
-        Node<t> temp = primero;
+        Node<t> temp = first;
         t valueToReturn = null;
         while(contador != position){
             temp = temp.getSiguiente();
@@ -71,7 +100,7 @@ public class LinkedList<t> implements MyList<t> {
     }
 
     public t get(t value){
-        Node<t> temp = primero;
+        Node<t> temp = first;
         t valueToReturn = null;
         if(contains(value)) {
             while (temp.getValue() != value) {
@@ -86,22 +115,22 @@ public class LinkedList<t> implements MyList<t> {
 
 
      public boolean isEmpty() {
-         return primero == null;
+         return first == null;
      }
 
     @Override
     public void makeEmpty() {
-        primero = null;
-        ultimo = null;
+        first = null;
+        last = null;
         size = 0;
     }
 
 
     public void addFirst(t value){
-        Node<t> nodo = new Node(value, primero);
-        primero = nodo;
-        if (ultimo == null){
-            ultimo = primero ;
+        Node<t> nodo = new Node(value, first);
+        first = nodo;
+        if (last == null){
+            last = first ;
         }
         size++;
     }
@@ -109,11 +138,11 @@ public class LinkedList<t> implements MyList<t> {
     public void addLast(t value){
         Node<t> nodo = new Node(value);
         if (!isEmpty()){
-            ultimo.setSiguiente(nodo);
-            ultimo  =  nodo;
+            last.setSiguiente(nodo);
+            last  =  nodo;
         } else {
-            ultimo = nodo;
-            primero = ultimo;
+            last = nodo;
+            first = last;
         }
 
         size++;
@@ -125,7 +154,7 @@ public class LinkedList<t> implements MyList<t> {
                 addLast(value);
 
             } else if (posicion > 1 && posicion < (size + 1)) {
-                Node<t> temp1 = primero;
+                Node<t> temp1 = first;
                 Node<t> temp2 = temp1.getSiguiente();
                 int contador = 1;
                 while ((contador + 1) != posicion) {
@@ -144,7 +173,7 @@ public class LinkedList<t> implements MyList<t> {
     }
 
     public void showList() {
-        Node recorrer = primero;
+        Node recorrer = first;
         System.out.println();
         while (recorrer != null) {
             System.out.print("[" + recorrer.getValue() + "]--->");
@@ -161,12 +190,12 @@ public class LinkedList<t> implements MyList<t> {
 
     public Iterator<t> iterator() {
 
-        return new MyIteratorLinkedList<>(primero);
+        return new MyIteratorLinkedList<>(first);
     }
 
     public void remove(t value){
         Node<t> beforeSearchValue = null;
-        Node<t> searchValue = this.primero;
+        Node<t> searchValue = this.first;
 
         // Busco el elemento a eliminar teniendo en cuenta mantener una referencia al elemento anterior
         while (searchValue != null && !searchValue.getValue().equals(value)) {
@@ -178,27 +207,27 @@ public class LinkedList<t> implements MyList<t> {
 
         if (searchValue != null) { // si encontre el elemento a eliminar
 
-            // Verifico si es el primer valor (caso borde) y no es el ultimo
-            if (searchValue == this.primero&& searchValue != this.ultimo) {
+            // Verifico si es el primer valor (caso borde) y no es el last
+            if (searchValue == this.first&& searchValue != this.last) {
 
-                Node<t> temp = this.primero;
-                this.primero = this.primero.getSiguiente(); // salteo el primero
+                Node<t> temp = this.first;
+                this.first = this.first.getSiguiente(); // salteo el first
 
                 temp.setSiguiente(null); // quito referencia del elemento eliminado al siguiente.
                 size--;
 
-                // Verifico si es el primer valor (caso borde) y no el primero
-            } else if (searchValue == this.ultimo && searchValue != this.primero) {
+                // Verifico si es el primer valor (caso borde) y no el first
+            } else if (searchValue == this.last && searchValue != this.first) {
 
                 beforeSearchValue.setSiguiente(null);
-                this.ultimo = beforeSearchValue;
+                this.last = beforeSearchValue;
                 size--;
 
-                // Si es el primer valor y el ultimo (lista de un solo valor)
-            } else if (searchValue == this.ultimo && searchValue == this.primero) {
+                // Si es el primer valor y el last (lista de un solo valor)
+            } else if (searchValue == this.last && searchValue == this.first) {
                 size=0;
-                this.primero = null;
-                this.ultimo = null;
+                this.first = null;
+                this.last = null;
 
             } else { // resto de los casos
 
@@ -220,7 +249,7 @@ public class LinkedList<t> implements MyList<t> {
     @Override
     public boolean contains(t value) {
         boolean contains = false;
-        Node<t> temp = primero;
+        Node<t> temp = first;
 
         while (temp != null && !temp.getValue().equals(value)) {
 

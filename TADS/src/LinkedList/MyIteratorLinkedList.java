@@ -16,6 +16,14 @@ public class MyIteratorLinkedList<T> implements Iterator<T> {
         return (nodo != null);
     }
 
+    public Node<T> getNodo() {
+        return nodo;
+    }
+
+    public void setNodo(Node<T> nodo) {
+        this.nodo = nodo;
+    }
+
     @Override
     public T next() {
         T valueToReturn = nodo.getValue();

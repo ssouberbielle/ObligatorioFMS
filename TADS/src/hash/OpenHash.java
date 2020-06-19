@@ -117,7 +117,6 @@ public class OpenHash<K,V> implements MyHash<K ,V> {
 
     }
 
-    @Override
     public boolean contains(K k) {
         int position = hashcode(k);
         boolean ifind = false;

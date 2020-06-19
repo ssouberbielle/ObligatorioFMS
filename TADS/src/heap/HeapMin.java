@@ -2,7 +2,7 @@ package heap;
 
 import exceptions.NoNullValueAllow;
 
-public class HeapMin<T extends Comparable<T>> implements MyHeap<T>{
+public class HeapMin<T extends Comparable<T>> implements MyHeap<T> {
 
 
     private T[] values;
@@ -15,9 +15,9 @@ public class HeapMin<T extends Comparable<T>> implements MyHeap<T>{
         pointerLastValue = 0;
     }
 
-    private void resize(){
-        T[] newValues = (T[]) new Comparable[values.length*2];
-        for(int i=0; i<values.length; i++){
+    private void resize() {
+        T[] newValues = (T[]) new Comparable[values.length * 2];
+        for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i];
         }
         values = newValues;
@@ -44,23 +44,29 @@ public class HeapMin<T extends Comparable<T>> implements MyHeap<T>{
     }
 
 
-        private T getFather(int childPosition) {
-            return values[(childPosition - 1)/2];
-        }
+    private T getFather(int childPosition) {
+        return values[(childPosition - 1) / 2];
+    }
 
-        private int gettempPosition(int childPosition) {
-            return (childPosition - 1)/2;
-        }
+    private int gettempPosition(int childPosition) {
+        return (childPosition - 1) / 2;
+    }
 
-        private T getFirstSon(int tempPosition) { return values[2*tempPosition+1];}
+    private T getFirstSon(int tempPosition) {
+        return values[2 * tempPosition + 1];
+    }
 
-        private T getSecondSon(int tempPosition) {return values[2*tempPosition +2];}
+    private T getSecondSon(int tempPosition) {
+        return values[2 * tempPosition + 2];
+    }
 
-        private int getFirstSonPosition(int tempPosition){ return (2*tempPosition+1);}
+    private int getFirstSonPosition(int tempPosition) {
+        return (2 * tempPosition + 1);
+    }
 
-        private int getSecondSonPosition(int tempPosition){ return (2*tempPosition+2);}
-
-
+    private int getSecondSonPosition(int tempPosition) {
+        return (2 * tempPosition + 2);
+    }
 
 
     public T getMax() {
