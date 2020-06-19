@@ -5,5 +5,5 @@ public interface MyHash<Key, Data> {
     int getSize();
     Data get(Key k);
     void remove(Key k);
-
+    boolean contains(Key k);
 }
