@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
-import Sort.Merge;
+
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -21,7 +21,7 @@ public class Main {
                 case 1:
                     Book[] books = LibraryImpl.loadBooks();
                     LibraryImpl.loadUsers();
-                  //System.out.println(books[0].getAuthors().getName()); Verifico que se obtienen los autores.
+                    System.out.println(books[0].getAuthors().getName()); //Verifico que se obtienen los autores.
                     System.out.println("Carga de datos realizada.");
                     break;
                 case 2:

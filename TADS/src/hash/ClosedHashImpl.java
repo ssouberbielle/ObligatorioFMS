@@ -85,6 +85,11 @@ public class ClosedHashImpl<Key, Data> implements MyHash<Key, Data> {
 
     }
 
+    @Override
+    public boolean contains(Key k) {
+        return false;
+    }
+
     private int internalHashcodeWithCollision(Key k, int attempt) {
         return (k.hashCode() + collisionFunction(attempt)) % hashTable.length;
     }
