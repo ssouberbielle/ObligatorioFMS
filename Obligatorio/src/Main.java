@@ -19,10 +19,12 @@ public class Main {
             int respuesta = scanner.nextInt();
             switch (respuesta) {
                 case 1:
+                    long start = System.currentTimeMillis();
                     Book[] books = LibraryImpl.loadBooks();
                     LibraryImpl.loadUsers();
-                    System.out.println(books[0].getAuthors().getName()); //Verifico que se obtienen los autores.
-                    System.out.println("Carga de datos realizada.");
+                    //System.out.println(books[0].getAuthors().getName()); Verifico que se obtienen los autores.
+                    long finish = System.currentTimeMillis();
+                    System.out.println("Carga de datos realizada, tiempo de ejecución de la carga: " + (finish-start));
                     break;
                 case 2:
                     System.out.println("1. Indicar el Top 10 de libros que más lecturas tienen por parte de usuarios.");
