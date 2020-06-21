@@ -188,11 +188,6 @@ public class LinkedList<t> implements MyList<t> {
         return this.getSize();
     }
 
-    public Iterator<t> iterator() {
-
-        return new MyIteratorLinkedList<>(first);
-    }
-
     public void remove(t value){
         Node<t> beforeSearchValue = null;
         Node<t> searchValue = this.first;
@@ -266,5 +261,39 @@ public class LinkedList<t> implements MyList<t> {
         return contains;
     }
 
+    public Iterator<t> iterator() {
 
+        return new MyIteratorLinkedList1(first);
+    }
+
+
+    private class MyIteratorLinkedList1 implements Iterator<t> {
+
+        private Node<t> nodo;
+
+        public MyIteratorLinkedList1(Node<t> nodo){
+            this.nodo = nodo;
+        }
+        @Override
+        public boolean hasNext() {
+            return (nodo != null);
+        }
+
+        public Node<t> getNodo() {
+            return nodo;
+        }
+
+        public void setNodo(Node<t> nodo) {
+            this.nodo = nodo;
+        }
+
+        @Override
+        public t next() {
+            t valueToReturn = nodo.getValue();
+
+            nodo = nodo.getSiguiente();
+
+            return valueToReturn;
+        }
+    }
 }

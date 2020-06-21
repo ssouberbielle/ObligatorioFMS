@@ -1,6 +1,8 @@
 package hash;
 
-public class ClosedHashImpl<Key, Data> implements MyHash<Key, Data> {
+import java.util.Iterator;
+
+public class ClosedHashImpl<Key, Data> implements MyHash<Key, Data>, Iterable<Data> {
 
     private static int LINEAL_COLLISION_FUNCTION = 1;
 
@@ -104,5 +106,45 @@ public class ClosedHashImpl<Key, Data> implements MyHash<Key, Data> {
         }
 
         return value;
+    }
+
+    @Override
+    public Iterator<Data> iterator() {
+
+        return new HashIterator(hashTable);
+    }
+
+    private class HashIterator implements Iterator<Data> {
+        private HashEntry<Key, Data>[] hashTable;
+        private int count;
+        private int maxIndex;
+        private HashEntry<Key, Data> current;
+
+        public HashIterator(HashEntry<Key, Data>[] hashTable) {
+            this.hashTable = hashTable;
+            this.count = 0;
+            this.maxIndex = hashTable.length;
+            moveToNext();
+
+        }
+
+        @Override
+        public boolean hasNext() {
+            return count<maxIndex;
+        }
+
+        @Override
+        public Data next() {
+            Data data = hashTable[count].getValue();
+            count++;
+            moveToNext();
+            return data;
+        }
+
+        public void moveToNext(){
+            while(count<maxIndex && (hashTable[count] == null || hashTable[count].isRemoved())){
+                count++;
+            }
+        }
     }
 }

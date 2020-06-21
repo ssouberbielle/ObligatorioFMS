@@ -7,14 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import LinkedList.MyIteratorLinkedList;
 import nodo.Node;
 import sun.invoke.util.Wrapper;
 
 
 public class LibraryImpl implements Library {
     private static Book[] books = new Book[10000];
-    private static ClosedHashImpl<Long,User> users = new ClosedHashImpl<Long,User>(54000); // antes 40000 y no andaba
+    private static ClosedHashImpl<Long, User> users = new ClosedHashImpl<Long, User>(54000); // antes 40000 y no andaba
 
     public static Book[] loadBooks() throws IOException, FileNotFoundException {
         int i = 0;
@@ -46,6 +45,7 @@ public class LibraryImpl implements Library {
         return books;
 
     }
+
     public static ClosedHashImpl<Long, User> loadUsers() throws IOException {
         Reader in = new FileReader("fuentedatos/to_read.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
@@ -62,7 +62,7 @@ public class LibraryImpl implements Library {
                 users.put(idUser, user);
             }
             Book book = books[(int) idBook - 1];
-            if (book !=null) user.getReserves().addFirst(book);
+            if (book != null) user.getReserves().addFirst(book);
 
         }
         System.out.println("tan los usuarios reservas");
@@ -86,7 +86,7 @@ public class LibraryImpl implements Library {
                 users.put(idUser2, user);
             }
             Book book = books[(int) idBook2 - 1];
-            if (book !=null) user.getReserves().add(book);
+            if (book != null) user.getReserves().add(book);
             user.getRatings().addFirst(rating1);
 
         }
@@ -104,61 +104,62 @@ public class LibraryImpl implements Library {
     }
 
     public static void topTenReservation() {
-        int [] count = new int [10000];
-        for (int usr = 1; usr < users.getSize() + 1; usr++) { // forma rustica de buscar las keys, no se si hay agujeros
-            LinkedList<Book> list = users.get((long) usr).getReserves(); //lista de reservas de usuario actual
-            MyIteratorLinkedList<Book> iterator = new MyIteratorLinkedList<>(list.getFirst()); //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
+        int[] count = new int[10000];
+        for (User usr : users) {
+            LinkedList<Book> list = usr.getReserves(); //lista de reservas de usuario actual
+            for (Book book : list) { //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
 
-            while (iterator.hasNext()) {
-                count[(int) (iterator.getNodo().getValue().getBook_id() - 1)]++; // suma 1 a la posicio
-                // n correspondiente a la del libro en el vector de libros
-            }
-        }
-        int []index = count.clone();
-        Merge.mergeSort(index,index.length);
-        for (int i = 0; i < 10; i++){
-            int amount = index[index.length - i - 1];
-            for (int a : count){
-                if (count[a] == amount){
-                    String title = books[a].getTitle();
-                    System.out.println("Id del libro " + a);
-                    System.out.println("Titulo " + title);
-                    System.out.println("Cantidad " + amount);
-                }
-            }
-
-        }
-    }
-
-    public static void topTwentyReservation() {
-        int [] count = new int [10000];
-        for (int usr = 1; usr < users.getSize() + 1; usr++) { // forma rustica de buscar las keys, no se si hay agujeros
-            LinkedList<Rating> list = users.get((long) usr).getRatings(); //lista de reservas de usuario actual
-            MyIteratorLinkedList<Rating> iterator = new MyIteratorLinkedList<Rating>(list.getFirst());
-
-            while (iterator.hasNext()) {
-                count[(int) (iterator.getNodo().getValue().getBook_id() - 1)]++; // suma 1 a la posicio
+                count[(int) (book.getBook_id() - 1)]++; // suma 1 a la posicio
                 // n correspondiente a la del libro en el vector de libros
             }
         }
 
-        int []index = count.clone();
-        Merge.mergeSort(index,index.length);
-        for (int i = 0; i < 10; i++){
-            int amount = index[index.length - i - 1];
-            for (int a : count){
-                if (count[a] == amount){
-                    String title = books[a].getTitle();
-                    System.out.println("Id del libro " + a);
-                    System.out.println("Titulo " + title);
-                    System.out.println("Cantidad " + amount);
+            int[] index = count.clone();
+            Merge.mergeSort(index, index.length);
+            for (int i = count.length-1; i > count.length-11 ; i--) {
+                int amount = index[i];
+                for (int a = 0; a < count.length; a++) {
+                    if (count[a] == amount) {
+                        String title = books[a].getTitle();
+                        System.out.println("Id del libro: " + a);
+                        System.out.println("Titulo: " + title);
+                        System.out.println("Cantidad de reservas: " + amount);
+                    }
+                }
+
+            }
+
+    }
+
+        public static void topTwentyReservation () {
+            int[] count = new int[10000];
+            for (User usr : users) {
+                LinkedList<Rating> list = usr.getRatings(); //lista de reservas de usuario actual
+                for (Rating rating : list) { //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
+
+                    count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
+                    // n correspondiente a la del libro en el vector de libros
                 }
             }
 
-        }
-    }
+            int[] index = count.clone();
+            Merge.mergeSort(index, index.length);
+            for (int i = count.length-1; i > count.length-21 ; i--) {
+                int amount = index[i];
+                for (int a = 0; a < count.length; a++) {
+                    if (count[a] == amount) {
+                        String title = books[a].getTitle();
+                        System.out.println("Id del libro: " + a);
+                        System.out.println("Titulo: " + title);
+                        System.out.println("Cantidad de ratings: " + amount);
+                    }
+                }
 
-    public void topTenReviews() {
+            }
+
+        }
+
+        public void topTenReviews () {
         /*Wrapper<Long>[] array = (Wrapper<Long>[]) new Comparable[53424]; //el import de Wrapper no es el mismo, probablemente feli uso una version de java mas nueva
         long UserIteration = 1;
         // Wrapper<Long, Integer, Float>[] array = (Wrapper<Long, Integer, Float>[]) new Object[52424];
@@ -178,14 +179,14 @@ public class LibraryImpl implements Library {
             }
             UserIteration++;
         }*/
-    }
+        }
 
-    public void topTenLanguage() {
+        public void topTenLanguage(){
 
-    }
-    //  Wrapper<Long, Integer, Float> packet = new Wrapper<Long, Integer, Float>(bookId);
-    //  packet.setT(reviews);
-    //  packet.setV((float) (sum / reviews));
+        }
+        //  Wrapper<Long, Integer, Float> packet = new Wrapper<Long, Integer, Float>(bookId);
+        //  packet.setT(reviews);
+        //  packet.setV((float) (sum / reviews));
 
         /*No es necesario tener los 3 a la vez, alcanzaría con tener idUsuario y cantidad de reservas. Una vez
         que ordenes ese vector, entonces podés calcular los rating promedio de cada uno para ordenar decresciente
@@ -194,14 +195,14 @@ public class LibraryImpl implements Library {
         iterar tranqui me parece, no sería tanto más largo
         */
 
-    public void topFiveLanguages(){ // Acá creo que podemos usar Enum, se había hablado de usar, pero no sé
-        // Igual me parece que hay que hacer tremendo switch sí o sí
+        public void topFiveLanguages () { // Acá creo que podemos usar Enum, se había hablado de usar, pero no sé
+            // Igual me parece que hay que hacer tremendo switch sí o sí
 
 
-    }
+        }
 
-    public void topTwentyPublication() {
-    }
+        public void topTwentyPublication () {
+        }
 
 
 
