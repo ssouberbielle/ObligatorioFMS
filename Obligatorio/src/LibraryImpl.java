@@ -131,7 +131,7 @@ public class LibraryImpl implements Library {
 
     }
 
-        public static void topTwentyReservation () {
+        public static void topTwentyRating () {
             int[] count = new int[10000];
             for (User usr : users) {
                 LinkedList<Rating> list = usr.getRatings(); //lista de reservas de usuario actual
@@ -160,26 +160,34 @@ public class LibraryImpl implements Library {
         }
 
         public void topTenReviews () {
-        /*Wrapper<Long>[] array = (Wrapper<Long>[]) new Comparable[53424]; //el import de Wrapper no es el mismo, probablemente feli uso una version de java mas nueva
+        //Wrapper<Long>[] array = (Wrapper<Long>[]) new Comparable[53424]; //el import de Wrapper no es el mismo, probablemente feli uso una version de java mas nueva
         long UserIteration = 1;
         // Wrapper<Long, Integer, Float>[] array = (Wrapper<Long, Integer, Float>[]) new Object[52424];
-        while (users.get(UserIteration) != null) {
-            int reviews = (users.get(UserIteration).getRatings().getSize()); // cantidad ratings
-            LinkedList<Rating> list = users.get(UserIteration).getRatings();
-            MyIteratorLinkedList<Rating> iterator = new MyIteratorLinkedList<Rating>(list.getFirst());
+        for(User usr : users) {
+            int reviews = (usr.getRatings().getSize());
+            int i = 0;
+            int[] ratings = new int[users.getSize()]; // cantidad ratings
+            ratings[i] = reviews;
+            i++;
+            LinkedList<Rating> list = usr.getRatings(); //lista de reservas de usuario actual
+            for (Rating rating : list) { //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
+
+               // count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
+                // n correspondiente a la del libro en el vector de libros
+            }
             int sum = 0;
             int counter = 1;
-            while (iterator.hasNext()) {
-                Long bookId = iterator.getNodo().getValue().getBook_id();
-                sum = sum + iterator.getNodo().getValue().getRating();
-                if (counter == reviews) {
-                    Node<Long> usr_amount = new Node<Long>(bookId);
-                    usr_amount.setPriority(reviews);
-                }
+          //  while (iterator.hasNext()) {
+            //    Long bookId = iterator.getNodo().getValue().getBook_id();
+            //    sum = sum + iterator.getNodo().getValue().getRating();
+     //           if (counter == reviews) {
+            //        Node<Long> usr_amount = new Node<Long>(bookId);
+        //            usr_amount.setPriority(reviews);
+              //  }
             }
-            UserIteration++;
-        }*/
+     //       UserIteration++;
         }
+
 
         public void topTenLanguage(){
 

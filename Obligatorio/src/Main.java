@@ -40,7 +40,7 @@ public class Main {
                             LibraryImpl.topTenReservation();
                             break;
                         case 2:
-                            LibraryImpl.topTwentyReservation();
+                            LibraryImpl.topTwentyRating();
                             break;
                         case 3: //consulta 3
                             break;
