@@ -11,7 +11,8 @@ public interface Library {
     void makeReservation(long user_id, long book_id); // user_id resrvas++
 
 
-    void topTwentyReservation();
+    static void topTwentyReservation(){
+    }
 
     void topTenReviews();
 
