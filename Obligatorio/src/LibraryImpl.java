@@ -12,7 +12,8 @@ import nodo.Node;
 import nodo.Wrapper;
 
 
-public class LibraryImpl implements Library {
+public class LibraryImpl<K> implements Library {
+
     private static Book[] books = new Book[10000];
     private static ClosedHashImpl<Long, User> users = new ClosedHashImpl<Long, User>(54000); // antes 40000 y no andaba
 
@@ -92,6 +93,8 @@ public class LibraryImpl implements Library {
 
         }
         System.out.println("tan los usuarios ratings");
+        System.out.println(users.get(43l).getRatings().getSize());
+        System.out.println(users.get(43l).getRatingNum());
         return users;
     }
 
@@ -105,6 +108,7 @@ public class LibraryImpl implements Library {
     }
 
     public static void topTenReservation() {
+
         int[] count = new int[10000];
         for (User usr : users) {
             LinkedList<Book> list = usr.getReserves(); //lista de reservas de usuario actual
@@ -162,7 +166,7 @@ public class LibraryImpl implements Library {
 
         public static void topTenReviews() {
 
-            int[] ratings = new int[users.getSize()];
+         /*   int[] ratings = new int[users.getSize()];
             for (User usr : users) {
                 int reviews = (usr.getRatings().getSize());
                 int i = 0;
@@ -173,23 +177,30 @@ public class LibraryImpl implements Library {
             int[] indexR = ratings.clone();
             Merge.mergeSort(indexR, indexR.length);
 
-            for (int i = ratings.length - 1; i > ratings.length - 11; i--) {
+            //for (int i = ratings.length - 1; i > ratings.length - 11; i--) {
             for (User usr : users) {
-                    if (ratings[i] == usr.getRatingNum()) {
+                //if (ratings[i] == usr.getRatings().getSize()) {
 
-                    }
-                    LinkedList<Rating> ratingList = new LinkedList<Rating>();
-                    for (Rating rat : ratingList) {
-                        // int sum = sum + rat.getRating();
-                    }
-                    //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
-
-                    // count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
-                    // n correspondiente a la del libro en el vector de libros
-
-                }
             }
-        }
+
+                // int sum = sum + rat.getRating();
+            }
+            //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
+
+            // count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
+            // n correspondiente a la del libro en el vector de libros
+
+        }*/
+
+            User[] personas = new User [users.getSize()];
+            int num = 0;
+            for (User persona: users) {
+                personas[num++] = persona;
+            }
+            Sorting.mergeSort(personas,personas.length);
+            for (int i = personas.length - 1; i > personas.length - 11; i--){
+
+            }
 
         public void topTenLanguage(){
 
