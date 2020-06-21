@@ -14,7 +14,7 @@ import sun.invoke.util.Wrapper;
 
 public class LibraryImpl implements Library {
     private static Book[] books = new Book[10000];
-    private static ClosedHashImpl<Long,User> users = new ClosedHashImpl<Long,User>(40000);
+    private static ClosedHashImpl<Long,User> users = new ClosedHashImpl<Long,User>(54000); // antes 40000 y no andaba
 
     public static Book[] loadBooks() throws IOException, FileNotFoundException {
         int i = 0;
@@ -62,7 +62,7 @@ public class LibraryImpl implements Library {
                 users.put(idUser, user);
             }
             Book book = books[(int) idBook - 1];
-            if (book !=null) user.getReserves().addFirst(book); //me marca que tiene que mandarse un long y aca pasas un book
+            if (book !=null) user.getReserves().addFirst(book);
 
         }
         System.out.println("tan los usuarios reservas");
@@ -75,7 +75,6 @@ public class LibraryImpl implements Library {
             String book_id2 = record.get("book_id");
             String rating = record.get("rating");
 
-
             long idUser2 = Long.parseLong(user_id2);
             long idBook2 = Long.parseLong(book_id2);
             int rati = Integer.parseInt(rating);
@@ -87,11 +86,11 @@ public class LibraryImpl implements Library {
                 users.put(idUser2, user);
             }
             Book book = books[(int) idBook2 - 1];
-            if (book !=null) user.getReserves().add(book); //mismo error que antes, se deberia pasar un long
+            if (book !=null) user.getReserves().add(book);
             user.getRatings().addFirst(rating1);
 
         }
-        System.out.println("tan los usuarios");
+        System.out.println("tan los usuarios ratings");
         return users;
     }
 
@@ -107,8 +106,8 @@ public class LibraryImpl implements Library {
     public static void topTenReservation() {
         int [] count = new int [10000];
         for (int usr = 1; usr < users.getSize() + 1; usr++) { // forma rustica de buscar las keys, no se si hay agujeros
-            LinkedList<Long> list = users.get((long) usr).getReserves(); //lista de reservas de usuario actual
-            MyIteratorLinkedList<Book> iterator = new MyIteratorLinkedList<Book>(list.getFirst()); //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
+            LinkedList<Book> list = users.get((long) usr).getReserves(); //lista de reservas de usuario actual
+            MyIteratorLinkedList<Book> iterator = new MyIteratorLinkedList<>(list.getFirst()); //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
 
             while (iterator.hasNext()) {
                 count[(int) (iterator.getNodo().getValue().getBook_id() - 1)]++; // suma 1 a la posicio
@@ -131,9 +130,9 @@ public class LibraryImpl implements Library {
         }
     }
 
-    public void topTwentyReservation() {
+    public static void topTwentyReservation() {
         int [] count = new int [10000];
-        for (int usr = 0; usr < users.getSize(); usr++) { // forma rustica de buscar las keys, no se si hay agujeros
+        for (int usr = 1; usr < users.getSize() + 1; usr++) { // forma rustica de buscar las keys, no se si hay agujeros
             LinkedList<Rating> list = users.get((long) usr).getRatings(); //lista de reservas de usuario actual
             MyIteratorLinkedList<Rating> iterator = new MyIteratorLinkedList<Rating>(list.getFirst());
 
@@ -142,6 +141,7 @@ public class LibraryImpl implements Library {
                 // n correspondiente a la del libro en el vector de libros
             }
         }
+
         int []index = count.clone();
         Merge.mergeSort(index,index.length);
         for (int i = 0; i < 10; i++){
@@ -159,7 +159,7 @@ public class LibraryImpl implements Library {
     }
 
     public void topTenReviews() {
-        Wrapper<Long>[] array = (Wrapper<Long>[]) new Comparable[53424]; //el import de Wrapper no es el mismo, probablemente feli uso una version de java mas nueva
+        /*Wrapper<Long>[] array = (Wrapper<Long>[]) new Comparable[53424]; //el import de Wrapper no es el mismo, probablemente feli uso una version de java mas nueva
         long UserIteration = 1;
         // Wrapper<Long, Integer, Float>[] array = (Wrapper<Long, Integer, Float>[]) new Object[52424];
         while (users.get(UserIteration) != null) {
@@ -177,7 +177,7 @@ public class LibraryImpl implements Library {
                 }
             }
             UserIteration++;
-        }
+        }*/
     }
 
     public void topTenLanguage() {

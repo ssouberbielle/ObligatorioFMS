@@ -1,15 +1,9 @@
 import LinkedList.LinkedList;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
 
 public class User {
     private long user_id;
-    private LinkedList<Long> reserves = new LinkedList<Long>();
+    private LinkedList<Book> reserves = new LinkedList<Book>(); //tuve que cambiar el tipo a Book
     private LinkedList<Rating> ratings = new LinkedList<Rating>();
 
     public User(long user_id) {
@@ -25,11 +19,11 @@ public class User {
     }
 
 
-    public LinkedList<Long> getReserves() {
+    public LinkedList<Book> getReserves() {
         return reserves;
     }
 
-    public void setReserves(LinkedList<Long> reserves) {
+    public void setReserves(LinkedList<Book> reserves) {
         this.reserves = reserves;
     }
 

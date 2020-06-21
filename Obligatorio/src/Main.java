@@ -39,7 +39,8 @@ public class Main {
                         case 1:
                             LibraryImpl.topTenReservation();
                             break;
-                        case 2: //consulta 2
+                        case 2:
+                            LibraryImpl.topTwentyReservation();
                             break;
                         case 3: //consulta 3
                             break;
