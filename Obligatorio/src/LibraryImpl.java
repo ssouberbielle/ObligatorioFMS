@@ -1,6 +1,7 @@
 import LinkedList.LinkedList;
 import Sort.Merge;
 import hash.ClosedHashImpl;
+import heap.HeapMax;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import java.io.FileNotFoundException;
@@ -8,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import nodo.Node;
-import sun.invoke.util.Wrapper;
+import nodo.Wrapper;
 
 
 public class LibraryImpl implements Library {
@@ -159,35 +160,36 @@ public class LibraryImpl implements Library {
 
         }
 
-        public void topTenReviews () {
-        //Wrapper<Long>[] array = (Wrapper<Long>[]) new Comparable[53424]; //el import de Wrapper no es el mismo, probablemente feli uso una version de java mas nueva
-        long UserIteration = 1;
-        // Wrapper<Long, Integer, Float>[] array = (Wrapper<Long, Integer, Float>[]) new Object[52424];
-        for(User usr : users) {
-            int reviews = (usr.getRatings().getSize());
-            int i = 0;
-            int[] ratings = new int[users.getSize()]; // cantidad ratings
-            ratings[i] = reviews;
-            i++;
-            LinkedList<Rating> list = usr.getRatings(); //lista de reservas de usuario actual
-            for (Rating rating : list) { //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
+        public static void topTenReviews() {
 
-               // count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
-                // n correspondiente a la del libro en el vector de libros
+            int[] ratings = new int[users.getSize()];
+            for (User usr : users) {
+                int reviews = (usr.getRatings().getSize());
+                int i = 0;
+                // cantidad ratings
+                ratings[i] = reviews;
+                i++;
             }
-            int sum = 0;
-            int counter = 1;
-          //  while (iterator.hasNext()) {
-            //    Long bookId = iterator.getNodo().getValue().getBook_id();
-            //    sum = sum + iterator.getNodo().getValue().getRating();
-     //           if (counter == reviews) {
-            //        Node<Long> usr_amount = new Node<Long>(bookId);
-        //            usr_amount.setPriority(reviews);
-              //  }
+            int[] indexR = ratings.clone();
+            Merge.mergeSort(indexR, indexR.length);
+
+            for (int i = ratings.length - 1; i > ratings.length - 11; i--) {
+            for (User usr : users) {
+                    if (ratings[i] == usr.getRatingNum()) {
+
+                    }
+                    LinkedList<Rating> ratingList = new LinkedList<Rating>();
+                    for (Rating rat : ratingList) {
+                        // int sum = sum + rat.getRating();
+                    }
+                    //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
+
+                    // count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
+                    // n correspondiente a la del libro en el vector de libros
+
+                }
             }
-     //       UserIteration++;
         }
-
 
         public void topTenLanguage(){
 

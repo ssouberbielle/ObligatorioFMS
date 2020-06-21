@@ -14,7 +14,9 @@ public interface Library {
     static void topTwentyReservation(){
     }
 
-    void topTenReviews();
+    static void topTenReviews() {
+
+    }
 
     void topTenLanguage();
 

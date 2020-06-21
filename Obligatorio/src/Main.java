@@ -42,7 +42,7 @@ public class Main {
                         case 2:
                             LibraryImpl.topTwentyRating();
                             break;
-                        case 3: //consulta 3
+                        case 3: LibraryImpl.topTenReviews();
                             break;
                         case 4: //consulta 4
                             break;
