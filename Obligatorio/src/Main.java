@@ -44,7 +44,7 @@ public class Main {
                             break;
                         case 3: LibraryImpl.topTenReviews();
                             break;
-                        case 4: //consulta 4
+                        case 4: LibraryImpl.topFiveLanguages();
                             break;
                         case 5: //consulta 5
                             break;

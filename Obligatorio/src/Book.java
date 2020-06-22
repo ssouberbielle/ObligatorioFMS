@@ -10,14 +10,6 @@ public class Book implements Comparable <Book> {
 
     private int reserveNum;
 
-    public int getReserveNum() {
-        return reserveNum;
-    }
-
-    public void setReserveNum(int reserveNum) {
-        this.reserveNum = reserveNum;
-    }
-
     public Book(long bookid, String isbn, Author authors, int original_publication_year, String original_title,
                 String title, String language, String image_url) {
         this.bookid = bookid;
@@ -28,6 +20,7 @@ public class Book implements Comparable <Book> {
         this.title = title;
         this.language = language;
         this.image_url = image_url;
+        this.reserveNum = 0;
     }
 
 
@@ -62,10 +55,10 @@ public class Book implements Comparable <Book> {
     public void setOriginal_publication_year(int original_publication_year) {
         this.original_publication_year = original_publication_year;
     }
+
     public String getOriginalTitle() {
         return original_title;
     }
-
     public void setOriginalTitle(String original_title) {
         this.original_title = original_title;
     }
@@ -94,8 +87,16 @@ public class Book implements Comparable <Book> {
         this.image_url = image_url;
     }
 
+    public int getReserveNum() {
+        return reserveNum;
+    }
+
+    public void setReserveNum(int reserveNum) {
+        this.reserveNum = reserveNum;
+    }
 
 
+    @Override
     public int compareTo(Book o) {
         return this.reserveNum - o.reserveNum;
     }

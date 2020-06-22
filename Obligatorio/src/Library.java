@@ -18,7 +18,7 @@ public interface Library {
 
     }
 
-    void topFiveLanguages();
+    static void topFiveLanguages(){}
 
     void topTwentyPublication();
 

@@ -1,6 +1,7 @@
 import LinkedList.LinkedList;
 import Sort.Merge;
 import hash.ClosedHashImpl;
+import nodo.Wrapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import java.io.FileNotFoundException;
@@ -206,37 +207,67 @@ public class LibraryImpl<K> implements Library {
         }
 
 
-        public void topFiveLanguages() { // FIXME Podemos usar reserveNum en la consulta 1
+        public static void topFiveLanguages() { // FIXME Podemos usar reserveNum en la consulta 1
 
-            int[] count = new int[10000];
+            /* Primero vamos a crear una lista con todos los idiomas que existen y un numero de reservas (ambos en un objeto)
+               Despues, iteramos por los libros, y comparamos su idioma con los de la lista
+               2 opcoines:
+                    Iterar por los libros y comparar cada libro con un unico idioma (itero por idioma)
+                    Iterar por los libros y comparar cada libro con todos los idiomas hasta que encuentres el correspondiente
+
+               for libros
+                    for idioma in listadeidiomas
+                    if idioma del libro == idioma de lista:
+                    idioma.reserva = idioma.reserva + libro.rserveNum
+
+                    Pasamos los objetos esos de idiomas y reservas en un vector
+                    ordenamos ese vector descendente
+                    Tomamos los 5 valores
+
+             */
             for (User usr : users) {
                 LinkedList<Book> list = usr.getReserves();
                 int bookPosition = 0;
                 for (Book book : list) {
-                    count[(int) (book.getBook_id() - 1)]++;
-                    book.setReserveNum(count[bookPosition]);
+                    book.setReserveNum(book.getReserveNum() + 1);
                 }
                 //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
-                Book[] booksToOrder = new Book[10000];
-                for (int b = 0; b < booksToOrder.length; b++) {
-                    booksToOrder[b] = books[b];
-                }
-                Sorting.mergeSort(booksToOrder, booksToOrder.length);
-                int languages = 0;
-                while (languages < 5) {
 
-                    languages++;
+                LinkedList<Wrapper<String>> langs = new LinkedList<Wrapper<String>>();
+                int counter = 0;
+                int reservas = 0;
+                for (int c = 0; c < books.length){
+                for (int b = 0; b < books.length; b++) {
+                    for (Wrapper l : langs) {
+                        if (books[b].getLanguage().equals(l.getValue())) {
+                            counter++;
+                        }
+                    }
+                    if (counter == 0){
+                        if (books[b].getLanguage().equals(books[b].getLanguage())){
+                            reservas = reservas + books[b].getReserveNum();
+
+
+                    }
+
+                        Wrapper<String> language = new Wrapper<String>(books[b].getLanguage());
+
+                    }
+
+
+
+
+
                 }
+
 
 
             }
 
         }
+            @Override
+            public void topTwentyPublication () {
 
-    @Override
-    public void topTwentyPublication() {
-
-    }
-
+            }
 
 }

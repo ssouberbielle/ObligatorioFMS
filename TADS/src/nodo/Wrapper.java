@@ -27,15 +27,7 @@ public class Wrapper<K> {
     }
 
     public int compareTo(Wrapper<K> o) {
-        int toReturn = 0;
-        if (this.value > o.value) {
-            toReturn = 1;
-            return toReturn;
+       return this.value - o.value;
         }
-        if (this.value < o.value) {
-            toReturn = -1;
-            return toReturn;
-        }
-        return toReturn;
-    }
+
 }
