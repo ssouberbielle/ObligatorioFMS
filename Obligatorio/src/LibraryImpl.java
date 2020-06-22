@@ -125,6 +125,7 @@ public class LibraryImpl<K> implements Library {
                         System.out.println("Id del libro: " + a);
                         System.out.println("Titulo: " + title);
                         System.out.println("Cantidad de reservas: " + amount);
+                        System.out.println("\n");
                     }
                 }
 
@@ -153,6 +154,7 @@ public class LibraryImpl<K> implements Library {
                         System.out.println("Id del libro: " + a);
                         System.out.println("Titulo: " + title);
                         System.out.println("Cantidad de ratings: " + amount);
+                        System.out.println("\n");
                     }
                 }
 
@@ -196,6 +198,7 @@ public class LibraryImpl<K> implements Library {
                 DecimalFormat df = new DecimalFormat("##.##");
                 df.setRoundingMode(RoundingMode.DOWN);
                 System.out.println("Rating promedio: "+ (df.format(usr.getRatingAvg())));
+                System.out.println("\n");
             }
 
 
@@ -203,29 +206,37 @@ public class LibraryImpl<K> implements Library {
         }
 
 
-        public void topTenLanguage(){
+        public void topFiveLanguages() { // FIXME Podemos usar reserveNum en la consulta 1
+
+            int[] count = new int[10000];
+            for (User usr : users) {
+                LinkedList<Book> list = usr.getReserves();
+                int bookPosition = 0;
+                for (Book book : list) {
+                    count[(int) (book.getBook_id() - 1)]++;
+                    book.setReserveNum(count[bookPosition]);
+                }
+                //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
+                Book[] booksToOrder = new Book[10000];
+                for (int b = 0; b < booksToOrder.length; b++) {
+                    booksToOrder[b] = books[b];
+                }
+                Sorting.mergeSort(booksToOrder, booksToOrder.length);
+                int languages = 0;
+                while (languages < 5) {
+
+                    languages++;
+                }
+
+
+            }
 
         }
-        //  Wrapper<Long, Integer, Float> packet = new Wrapper<Long, Integer, Float>(bookId);
-        //  packet.setT(reviews);
-        //  packet.setV((float) (sum / reviews));
 
-        /*No es necesario tener los 3 a la vez, alcanzaría con tener idUsuario y cantidad de reservas. Una vez
-        que ordenes ese vector, entonces podés calcular los rating promedio de cada uno para ordenar decresciente
-        No sé si es mejor conocer el promedio rating al principio o al final, supongo que al final.
-        Sí, mejor al final porque se calculan solamente los rating promedio de los primeros 10, así que podemos
-        iterar tranqui me parece, no sería tanto más largo
-        */
+    @Override
+    public void topTwentyPublication() {
 
-        public void topFiveLanguages () { // Acá creo que podemos usar Enum, se había hablado de usar, pero no sé
-            // Igual me parece que hay que hacer tremendo switch sí o sí
-
-
-        }
-
-        public void topTwentyPublication () {
-        }
-
+    }
 
 
 }

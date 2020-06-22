@@ -1,4 +1,4 @@
-public class Book {
+public class Book implements Comparable <Book> {
     private long bookid;
     private String isbn;
     private Author authors;
@@ -8,8 +8,15 @@ public class Book {
     private String language;
     private String image_url;
 
+    private int reserveNum;
 
+    public int getReserveNum() {
+        return reserveNum;
+    }
 
+    public void setReserveNum(int reserveNum) {
+        this.reserveNum = reserveNum;
+    }
 
     public Book(long bookid, String isbn, Author authors, int original_publication_year, String original_title,
                 String title, String language, String image_url) {
@@ -87,4 +94,9 @@ public class Book {
         this.image_url = image_url;
     }
 
+
+
+    public int compareTo(Book o) {
+        return this.reserveNum - o.reserveNum;
+    }
 }
