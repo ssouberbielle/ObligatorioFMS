@@ -87,12 +87,10 @@ public class LibraryImpl<K> implements Library {
                 users.put(idUser2, user);
             }
             Book book = books[(int) idBook2 - 1];
-            if (book != null) user.getReserves().add(book);
             user.getRatings().addFirst(rating1);
 
         }
         System.out.println("tan los usuarios ratings");
-        System.out.println(users.get(43l).getRatings().getSize());
         return users;
     }
 
@@ -189,7 +187,7 @@ public class LibraryImpl<K> implements Library {
 
                 DecimalFormat df = new DecimalFormat("##.##");
                 df.setRoundingMode(RoundingMode.DOWN);
-             //IMPRIMO LOS PROMEDIOS AHORA SOLO FALTA ORENARLOS
+
             }
             BubbleSort.bubbleSort(index);
             for(User usr : index) {
