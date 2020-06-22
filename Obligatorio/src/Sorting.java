@@ -53,7 +53,7 @@ public class Sorting{
 
         int mid = len / 2;
         User[] left_arr = new User[mid];
-        User [] right_arr = new User[len-mid];
+        User[] right_arr = new User[len-mid];
 
         //Dividing array into two and copying into two separate arrays
         int k = 0;
@@ -74,7 +74,7 @@ public class Sorting{
     }
 
 
-    public static void merge(User[] left_arr, User[] right_arr, User[] arr,int left_size, int right_size){
+    public static void merge(User[] left_arr, User[] right_arr, User[] arr, int left_size, int right_size){
 
         int i=0,l=0,r = 0;
         //The while loops check the conditions for merging

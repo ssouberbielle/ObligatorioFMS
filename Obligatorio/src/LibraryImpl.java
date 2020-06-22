@@ -1,15 +1,14 @@
 import LinkedList.LinkedList;
 import Sort.Merge;
 import hash.ClosedHashImpl;
-import heap.HeapMax;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import nodo.Node;
-import nodo.Wrapper;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 
 public class LibraryImpl<K> implements Library {
@@ -187,8 +186,20 @@ public class LibraryImpl<K> implements Library {
                 promedio = ((float) suma / index[b].getRatings().getSize());
                 index[b].setRatingAvg(promedio);
                 suma = 0;
-                System.out.println(index[b].getRatingAvg()); //IMPRIMO LOS PROMEDIOS AHORA SOLO FALTA ORENARLOS
+
+                DecimalFormat df = new DecimalFormat("##.##");
+                df.setRoundingMode(RoundingMode.DOWN);
+             //IMPRIMO LOS PROMEDIOS AHORA SOLO FALTA ORENARLOS
             }
+            BubbleSort.bubbleSort(index);
+            for(User usr : index) {
+                System.out.println("ID del usuario: "+ usr.getUser_id());
+                System.out.println("Cantidad: "+ usr.getRatings().getSize());
+                DecimalFormat df = new DecimalFormat("##.##");
+                df.setRoundingMode(RoundingMode.DOWN);
+                System.out.println("Rating promedio: "+ (df.format(usr.getRatingAvg())));
+            }
+
 
 
         }

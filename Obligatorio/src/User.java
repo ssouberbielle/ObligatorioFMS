@@ -55,6 +55,10 @@ public class User implements Comparable<User> {
         return this.getRatings().getSize() - o.getRatings().getSize();
     }
 
+    public float compareToAvg(User o){
+        return this.getRatingAvg() - o.getRatingAvg();
+    }
+
     @Override
     public int compareTo(User o) {
         return 0;
