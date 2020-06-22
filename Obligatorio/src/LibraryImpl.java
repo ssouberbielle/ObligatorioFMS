@@ -94,7 +94,6 @@ public class LibraryImpl<K> implements Library {
         }
         System.out.println("tan los usuarios ratings");
         System.out.println(users.get(43l).getRatings().getSize());
-        System.out.println(users.get(43l).getRatingNum());
         return users;
     }
 
@@ -165,42 +164,35 @@ public class LibraryImpl<K> implements Library {
         }
 
         public static void topTenReviews() {
-
-         /*   int[] ratings = new int[users.getSize()];
-            for (User usr : users) {
-                int reviews = (usr.getRatings().getSize());
-                int i = 0;
-                // cantidad ratings
-                ratings[i] = reviews;
-                i++;
-            }
-            int[] indexR = ratings.clone();
-            Merge.mergeSort(indexR, indexR.length);
-
-            //for (int i = ratings.length - 1; i > ratings.length - 11; i--) {
-            for (User usr : users) {
-                //if (ratings[i] == usr.getRatings().getSize()) {
-
-            }
-
-                // int sum = sum + rat.getRating();
-            }
-            //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
-
-            // count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
-            // n correspondiente a la del libro en el vector de libros
-
-        }*/
-
-            User[] personas = new User [users.getSize()];
+            User[] personas = new User[users.getSize()];
+            User[] index = new User[10];
+            float promedio = 0;
+            int a = 1;
             int num = 0;
-            for (User persona: users) {
+            for (User persona : users) {
                 personas[num++] = persona;
             }
-            Sorting.mergeSort(personas,personas.length);
-            for (int i = personas.length - 1; i > personas.length - 11; i--){
-
+            Sorting.mergeSort(personas, personas.length);
+            for (int i = personas.length - 1; i > personas.length - 11; i--) {
+                index[a - 1] = personas[i];
+                //System.out.println(index[a - 1].getRatings().getSize()); // verifico que el sort funciona
+                a++;
             }
+
+            int suma = 0;
+            for (int b = 0; b < 10; b++) {
+                for (int j = 0; j < index[b].getRatings().getSize(); j++) {
+                    suma = (suma + index[b].getRatings().get(j).getRating());
+                }
+                promedio = (suma / index[b].getRatings().getSize());
+                index[b].setRatingAvg(promedio);
+                suma = 0;
+                System.out.println(index[b].getRatingAvg()); //IMPRIMO LOS PROMEDIOS AHORA SOLO FALTA ORENARLOS
+            }
+
+
+        }
+
 
         public void topTenLanguage(){
 

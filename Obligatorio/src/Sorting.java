@@ -1,5 +1,3 @@
-import
-
 public class Sorting{
 
     public static void mergeSort (int[] arr, int len){
@@ -82,7 +80,7 @@ public class Sorting{
         //The while loops check the conditions for merging
         while(l<left_size && r<right_size){
 
-            if(left_arr[l].compareTo(right_arr[r]) == 0){
+            if(left_arr[l].compareToRating(right_arr[r]) < 0){
                 arr[i++] = left_arr[l++];
             }
             else{

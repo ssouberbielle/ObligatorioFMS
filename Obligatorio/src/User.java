@@ -7,10 +7,23 @@ public class User implements Comparable<User> {
     private LinkedList<Book> reserves = new LinkedList<Book>(); //tuve que cambiar el tipo a Book
     private LinkedList<Rating> ratings = new LinkedList<Rating>();
 
+    private float ratingAvg;
 
     public User(long user_id) {
         this.user_id = user_id;
     }
+
+    public void setRatingAvg(float ratingAvg) {
+        this.ratingAvg = ratingAvg;
+    }
+
+    public float getRatingAvg() {
+        /*for(int i=0; i<getRatings().getSize(); i++) {
+            ratingAvg = ((ratingAvg + getRatings().get(i).getRating())/getRatings().getSize());
+        }*/
+        return ratingAvg;
+    }
+
 
 
 
@@ -39,9 +52,13 @@ public class User implements Comparable<User> {
         this.ratings = ratings;
     }
 
+    public int compareToRating(User o) {
+        return this.getRatings().getSize() - o.getRatings().getSize();
+    }
+
     @Override
     public int compareTo(User o) {
-        return this.getRatings().getSize() - o.getRatings().getSize();
+        return 0;
     }
 }
 
