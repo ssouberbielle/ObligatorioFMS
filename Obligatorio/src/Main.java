@@ -9,7 +9,6 @@ public class Main {
 
 
     public static void menu() throws IOException {
-
         boolean run = true;
         while (run) {
             System.out.println("Seleccione la opción que desee");

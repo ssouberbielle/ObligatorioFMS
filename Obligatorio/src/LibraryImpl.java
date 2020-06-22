@@ -184,7 +184,7 @@ public class LibraryImpl<K> implements Library {
                 for (int j = 0; j < index[b].getRatings().getSize(); j++) {
                     suma = (suma + index[b].getRatings().get(j).getRating());
                 }
-                promedio = (suma / index[b].getRatings().getSize());
+                promedio = ((float) suma / index[b].getRatings().getSize());
                 index[b].setRatingAvg(promedio);
                 suma = 0;
                 System.out.println(index[b].getRatingAvg()); //IMPRIMO LOS PROMEDIOS AHORA SOLO FALTA ORENARLOS

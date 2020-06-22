@@ -6,7 +6,6 @@ public class User implements Comparable<User> {
     private long user_id;
     private LinkedList<Book> reserves = new LinkedList<Book>(); //tuve que cambiar el tipo a Book
     private LinkedList<Rating> ratings = new LinkedList<Rating>();
-
     private float ratingAvg;
 
     public User(long user_id) {
