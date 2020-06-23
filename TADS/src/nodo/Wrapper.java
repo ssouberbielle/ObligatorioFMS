@@ -1,6 +1,6 @@
 package nodo;
 
-public class Wrapper<K> {
+public class Wrapper <K extends Comparable <K>>{
     private K key;
     private int value;
 
@@ -26,8 +26,8 @@ public class Wrapper<K> {
         this.value = value;
     }
 
-    public int compareTo(Wrapper<K> o) {
-       return this.value - o.value;
-        }
 
+    public int compareTo(Wrapper<K> o) {
+        return this.value - o.value;
+    }
 }

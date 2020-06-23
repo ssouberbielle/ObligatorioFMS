@@ -5,7 +5,7 @@ import nodo.Wrapper;
 public class User implements Comparable<User> {
     private long user_id;
     private LinkedList<Book> reserves = new LinkedList<Book>(); //tuve que cambiar el tipo a Book
-    private LinkedList<Rating> ratings = new LinkedList<Rating>();
+    protected LinkedList<Rating> ratings = new LinkedList<Rating>();
     private float ratingAvg;
 
     public User(long user_id) {
@@ -65,3 +65,12 @@ public class User implements Comparable<User> {
     }
 }
 
+class UserCompByRatings extends User {
+    public UserCompByRatings(long userId){
+        super(userId);
+    }
+    @Override
+    public int compareTo(User o){
+        return super.ratings.getSize()-o.ratings.getSize();
+    }
+}

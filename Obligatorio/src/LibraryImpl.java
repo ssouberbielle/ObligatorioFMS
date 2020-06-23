@@ -1,9 +1,13 @@
 import LinkedList.LinkedList;
+import Sort.BubbleSort;
 import Sort.Merge;
+import Sort.Sorting;
 import hash.ClosedHashImpl;
 import nodo.Wrapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import nodo.Node;
+import javax.imageio.stream.ImageInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,7 +16,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 
-public class LibraryImpl<K> implements Library {
+public class LibraryImpl implements Library {
 
     private static Book[] books = new Book[10000];
     private static ClosedHashImpl<Long, User> users = new ClosedHashImpl<Long, User>(54000); // antes 40000 y no andaba
@@ -31,6 +35,11 @@ public class LibraryImpl<K> implements Library {
             String language = record.get(6);
             String image_url = record.get(7);
 
+            String[] str = new String[2];
+            str =language.split("-", 2);
+
+
+
             int year;
             try {
                 year = Integer.parseInt(original_publication_year);
@@ -40,7 +49,7 @@ public class LibraryImpl<K> implements Library {
             long idBook = Long.parseLong(book_id);
 
             Author author = new Author(authors);
-            Book book = new Book(idBook, isbn, author, year, original_title, title, language, image_url);
+            Book book = new Book(idBook, isbn, author, year, original_title, title, str[0], image_url);
             books[i] = book;
             i++;
         }
@@ -116,98 +125,107 @@ public class LibraryImpl<K> implements Library {
             }
         }
 
-            int[] index = count.clone();
-            Merge.mergeSort(index, index.length);
-            for (int i = count.length-1; i > count.length-11 ; i--) {
-                int amount = index[i];
-                for (int a = 0; a < count.length; a++) {
-                    if (count[a] == amount) {
-                        String title = books[a].getTitle();
-                        System.out.println("Id del libro: " + a);
-                        System.out.println("Titulo: " + title);
-                        System.out.println("Cantidad de reservas: " + amount);
-                        System.out.println("\n");
-                    }
+        int[] index = count.clone();
+        Merge.mergeSort(index, index.length);
+        for (int i = count.length - 1; i > count.length - 11; i--) {
+            int amount = index[i];
+            for (int a = 0; a < count.length; a++) {
+                if (count[a] == amount) {
+                    String title = books[a].getTitle();
+                    System.out.println("Id del libro: " + a);
+                    System.out.println("Titulo: " + title);
+                    System.out.println("Cantidad de reservas: " + amount);
+                    System.out.println("\n");
                 }
-
             }
+
+        }
 
     }
 
-        public static void topTwentyRating () {
-            int[] count = new int[10000];
-            for (User usr : users) {
-                LinkedList<Rating> list = usr.getRatings(); //lista de reservas de usuario actual
-                for (Rating rating : list) { //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
+    public static void topTwentyRating() {
+        int[] count = new int[10000];
+        for (User usr : users) {
+            LinkedList<Rating> list = usr.getRatings(); //lista de reservas de usuario actual
+            for (Rating rating : list) { //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
 
-                    count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
-                    // n correspondiente a la del libro en el vector de libros
-                }
+                count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
+                // n correspondiente a la del libro en el vector de libros
             }
+        }
 
-            int[] index = count.clone();
-            Merge.mergeSort(index, index.length);
-            for (int i = count.length-1; i > count.length-21 ; i--) {
-                int amount = index[i];
-                for (int a = 0; a < count.length; a++) {
-                    if (count[a] == amount) {
-                        String title = books[a].getTitle();
-                        System.out.println("Id del libro: " + a);
-                        System.out.println("Titulo: " + title);
-                        System.out.println("Cantidad de ratings: " + amount);
-                        System.out.println("\n");
-                    }
+        int[] index = count.clone();
+        Merge.mergeSort(index, index.length);
+        for (int i = count.length - 1; i > count.length - 21; i--) {
+            int amount = index[i];
+            for (int a = 0; a < count.length; a++) {
+                if (count[a] == amount) {
+                    String title = books[a].getTitle();
+                    System.out.println("Id del libro: " + a);
+                    System.out.println("Titulo: " + title);
+                    System.out.println("Cantidad de ratings: " + amount);
+                    System.out.println("\n");
                 }
-
             }
 
         }
 
-        public static void topTenReviews() {
-            User[] personas = new User[users.getSize()];
-            User[] index = new User[10];
-            float promedio = 0;
-            int a = 1;
-            int num = 0;
-            for (User persona : users) {
-                personas[num++] = persona;
+    }
+
+    public static void topTenReviews() {
+        User[] personas = new User[users.getSize()];
+        User[] index = new User[10];
+        float promedio = 0;
+        int a = 1;
+        int num = 0;
+        for (User persona : users) {
+            personas[num++] = persona;
+        }
+        Sorting.mergeSort(personas, personas.length);
+        for (int i = personas.length - 1; i > personas.length - 11; i--) {
+            index[a - 1] = personas[i];
+            //System.out.println(index[a - 1].getRatings().getSize()); // verifico que el sort funciona
+            a++;
+        }
+
+        int suma = 0;
+        for (int b = 0; b < 10; b++) {
+            for (int j = 0; j < index[b].getRatings().getSize(); j++) {
+                suma = (suma + index[b].getRatings().get(j).getRating());
             }
-            Sorting.mergeSort(personas, personas.length);
-            for (int i = personas.length - 1; i > personas.length - 11; i--) {
-                index[a - 1] = personas[i];
-                //System.out.println(index[a - 1].getRatings().getSize()); // verifico que el sort funciona
-                a++;
-            }
+            promedio = ((float) suma / index[b].getRatings().getSize());
+            index[b].setRatingAvg(promedio);
+            suma = 0;
 
-            int suma = 0;
-            for (int b = 0; b < 10; b++) {
-                for (int j = 0; j < index[b].getRatings().getSize(); j++) {
-                    suma = (suma + index[b].getRatings().get(j).getRating());
-                }
-                promedio = ((float) suma / index[b].getRatings().getSize());
-                index[b].setRatingAvg(promedio);
-                suma = 0;
+            DecimalFormat df = new DecimalFormat("##.##");
+            df.setRoundingMode(RoundingMode.DOWN);
 
-                DecimalFormat df = new DecimalFormat("##.##");
-                df.setRoundingMode(RoundingMode.DOWN);
-
-            }
-            BubbleSort.bubbleSort(index);
-            for(User usr : index) {
-                System.out.println("ID del usuario: "+ usr.getUser_id());
-                System.out.println("Cantidad: "+ usr.getRatings().getSize());
-                DecimalFormat df = new DecimalFormat("##.##");
-                df.setRoundingMode(RoundingMode.DOWN);
-                System.out.println("Rating promedio: "+ (df.format(usr.getRatingAvg())));
-                System.out.println("\n");
-            }
-
-
-
+        }
+        BubbleSort.bubbleSort(index);
+        for (User usr : index) {
+            System.out.println("ID del usuario: " + usr.getUser_id());
+            System.out.println("Cantidad: " + usr.getRatings().getSize());
+            DecimalFormat df = new DecimalFormat("##.##");
+            df.setRoundingMode(RoundingMode.DOWN);
+            System.out.println("Rating promedio: " + (df.format(usr.getRatingAvg())));
+            System.out.println("\n");
         }
 
 
-        public static void topFiveLanguages() { // FIXME Podemos usar reserveNum en la consulta 1
+
+
+    }
+
+
+    public static void topFiveLanguages() { // FIXME Podemos usar reserveNum en la consulta 1
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /*
+/*
+
+
+
+
 
             /* Primero vamos a crear una lista con todos los idiomas que existen y un numero de reservas (ambos en un objeto)
                Despues, iteramos por los libros, y comparamos su idioma con los de la lista
@@ -225,49 +243,77 @@ public class LibraryImpl<K> implements Library {
                     Tomamos los 5 valores
 
              */
-            for (User usr : users) {
-                LinkedList<Book> list = usr.getReserves();
-                int bookPosition = 0;
-                for (Book book : list) {
-                    book.setReserveNum(book.getReserveNum() + 1);
-                }
-                //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
 
-                LinkedList<Wrapper<String>> langs = new LinkedList<Wrapper<String>>();
-                int counter = 0;
-                int reservas = 0;
-                for (int c = 0; c < books.length){
+        int[] count = new int[10000];
+        for (User user : users) {
+            LinkedList<Book> list = user.getReserves();
+            for (Book book : list) {
+                count[(int) book.getBook_id() - 1]++;
+            }
+        }
+        Book[] vector = new Book[10000];
+        for (int i = 0; i < vector.length; i++) {
+            vector[i] = books[i];
+            vector[i].setReserveNum(count[i]);
+            Sorting.mergeSort(books, books.length);
+        }
+        for (Book book : books) {
+            System.out.println(book.getReserveNum());
+        }
+
+
+        //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
+
+        ClosedHashImpl<String, Integer> languages = new ClosedHashImpl<>(40);
+        for (Book u : books) {
+            if (!languages.contains(u.getLanguage())) {
+                languages.put(u.getLanguage(), 0);
+
+            }
+        }
+        int size = languages.filledBuckets();
+        // Todo hasta aca es para saber si existe algun valor particular
+        LinkedList<Wrapper<String>> language = new LinkedList<Wrapper<String>>();
+        Node(Wrapper<String)
+        language.addFirst() = new Wrapper<String>("espanol");
+        language[0].setValue(3);
+        System.out.println(language[0].getValue());
+
+
+           /* int counter = 0;
+            int reservas = 0;
+            for (int c = 0; c < books.length; c++) {
                 for (int b = 0; b < books.length; b++) {
-                    for (Wrapper l : langs) {
-                        if (books[b].getLanguage().equals(l.getValue())) {
+                    for (String l : languages) {
+                        if (books[b].getLanguage().equals(l)){
                             counter++;
                         }
                     }
-                    if (counter == 0){
-                        if (books[b].getLanguage().equals(books[b].getLanguage())){
+                    if (counter == 0) {
+                        if (books[b].getLanguage().equals(books[b].getLanguage())) {
                             reservas = reservas + books[b].getReserveNum();
 
 
+                        }
+
+
+
                     }
-
-                        Wrapper<String> language = new Wrapper<String>(books[b].getLanguage());
-
-                    }
-
-
-
 
 
                 }
-
 
 
             }
 
         }
-            @Override
-            public void topTwentyPublication () {
 
-            }
+
+*/
+    }
+    @Override
+    public void topTwentyPublication() {
+    }
+
 
 }

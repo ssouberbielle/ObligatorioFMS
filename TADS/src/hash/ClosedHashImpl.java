@@ -49,7 +49,16 @@ public class ClosedHashImpl<Key, Data> implements MyHash<Key, Data>, Iterable<Da
 
         size++;
     }
+    public int filledBuckets (){
+        int res = 0;
+        for (HashEntry<Key, Data> elements: hashTable) {
+            if (elements != null) {
+                res++;
+            }
 
+        }
+        return res;
+    }
     @Override
     public Data get(Key k) {
         int attempt = 0;
@@ -89,7 +98,7 @@ public class ClosedHashImpl<Key, Data> implements MyHash<Key, Data>, Iterable<Da
 
     @Override
     public boolean contains(Key k) {
-        return false;
+        return this.get(k) != null;
     }
 
     private int internalHashcodeWithCollision(Key k, int attempt) {
