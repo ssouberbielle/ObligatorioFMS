@@ -35,8 +35,10 @@ public class LanguageTimes implements Comparable <LanguageTimes> {  // FIXME des
 
         ClosedHashImpl<String, String> languages = new ClosedHashImpl<>(40);
         for (Book b : books) {
-            if (!languages.contains(b.getLanguage())) { // si no existe todavia el lenguaje
-                languages.put(b.getLanguage(), "0"); // Este valor es inutil
+            if (b.getLanguage() != "nan") {
+                if (!languages.contains(b.getLanguage())) { // si no existe todavia el lenguaje
+                    languages.put(b.getLanguage(), "0"); // Este valor es inutil
+                }
             }
         }
         int size = languages.filledBuckets();
@@ -46,12 +48,13 @@ public class LanguageTimes implements Comparable <LanguageTimes> {  // FIXME des
         int i = 0;
 
         for (HashEntry<String, String> nodo: languages.getHashTable()) {
-            if (nodo != null) {
-                LanguageTimes lt = new LanguageTimes(nodo.getKey());
-                tempArray[i] = lt;
-                i++;
+            if (nodo != null && nodo.getKey() != "nan") {
+                    LanguageTimes lt = new LanguageTimes(nodo.getKey());
+                    tempArray[i] = lt;
+                    i++;
+                }
             }
-        }
+
 
         for (LanguageTimes lts : tempArray) {
             for (Book bk : books) {
