@@ -22,4 +22,17 @@ public class YA {
     public void setAuthor(Author author) {
         this.author = author;
     }
+
+    @Override
+    public int hashCode() {
+        return author.getName().length() + Math.abs(year);
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof YA)
+            return this.year == ((YA) obj).year && this.author.getName().equals(((YA) obj).author.getName());
+        return false;
+    }
 }

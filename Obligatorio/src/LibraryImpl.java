@@ -34,7 +34,7 @@ public class LibraryImpl implements Library {
             String image_url = record.get(7);
 
             String[] str = new String[2];
-            str =language.split("-", 2);
+            str = language.split("-", 2);
 
             String[] authorArray = new String[6];
             authorArray = authors.split(", ");
@@ -48,7 +48,7 @@ public class LibraryImpl implements Library {
             long idBook = Long.parseLong(book_id);
 
             LinkedList<Author> authorList = new LinkedList<Author>();
-            for(String a: authorArray){
+            for (String a : authorArray) {
                 if (a != null) {
                     Author author = new Author(a);
                     authorList.addFirst(author);
@@ -56,7 +56,7 @@ public class LibraryImpl implements Library {
                 }
             }
 
-            if(str[0].equals("en")) str[0] = "eng";
+            if (str[0].equals("en")) str[0] = "eng";
             Book book = new Book(idBook, isbn, authorList, year, original_title, title, str[0], image_url);
             books[i] = book;
             i++;
@@ -211,8 +211,6 @@ public class LibraryImpl implements Library {
         }
 
 
-
-
     }
 
 
@@ -231,32 +229,37 @@ public class LibraryImpl implements Library {
             vector[i].setReserveNum(count[i]);
 
         }
-       LanguageTimes.Consulta4(books, users);
+        LanguageTimes.Consulta4(books, users);
 
-        }
+    }
 
-        //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
-
+    //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
 
 
     public static void topTwentyPublication() {
-        ClosedHashImpl<YA,AuthorYearPublications> publishPerYear = new ClosedHashImpl<>(20000);
-        for (Book book: books){
-            for (Author author: book.getAuthors()){
+        boolean trece = false;
+        ClosedHashImpl<YA, AuthorYearPublications> publishPerYear = new ClosedHashImpl<>(20000);
+        for (Book book : books) {
+            for (Author author : book.getAuthors()) {
                 int year = book.getOriginal_publication_year();
-                YA ya = new YA(author,year);
-                AuthorYearPublications ayp = new AuthorYearPublications(author, year);
+                YA ya = new YA(author, year);
+                AuthorYearPublications ayp = publishPerYear.get(ya);
+                if (ayp == null) {
+                    ayp = new AuthorYearPublications(author, year);
+                    publishPerYear.put(ya, ayp);
 
-                if(!publishPerYear.contains(ya)) {
-                    publishPerYear.put(ya,ayp);
+                } else {
+                    ayp.setPublications(ayp.getPublications() + 1);
                 }
-                publishPerYear.get(ya).setPublications(publishPerYear.get(ya).getPublications()+1);
                 System.out.println(ayp.getPublications());
-                }
-
-
+                if (ayp.getPublications() == 13)
+                    trece = true;
 
             }
+
+
+        }
+        if (trece) System.out.println("Hola");
         System.out.println(publishPerYear.getSize());
     }
 }

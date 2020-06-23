@@ -1,4 +1,4 @@
-public class AuthorYearPublications {
+public class AuthorYearPublications implements Comparable <AuthorYearPublications> {
     private int publications;
     private Author author;
     private int year;
@@ -7,6 +7,7 @@ public class AuthorYearPublications {
     public AuthorYearPublications(Author author, int year) {
         this.author = author;
         this.year = year;
+        this.publications = 1;
     }
 
     public int getPublications() {
@@ -34,5 +35,10 @@ public class AuthorYearPublications {
     }
 
 
+
+    @Override
+    public int compareTo(AuthorYearPublications o) {
+        return Integer.compare(this.publications, o.publications);
+    }
 }
 
