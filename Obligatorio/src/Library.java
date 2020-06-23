@@ -6,21 +6,13 @@ public interface Library {
 
     }
 
-    void addRating(long user_id, long book_id, int rating);
+    static void topTwentyReservation(){}
 
-    void makeReservation(long user_id, long book_id); // user_id resrvas++
-
-
-    static void topTwentyReservation(){
-    }
-
-    static void topTenReviews() {
-
-    }
+    static void topTenReviews() {}
 
     static void topFiveLanguages(){}
 
-    void topTwentyPublication();
+    static void topTwentyPublication(){};
 
 
 }

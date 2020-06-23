@@ -111,14 +111,6 @@ public class LibraryImpl implements Library {
         return users;
     }
 
-    public void addRating(long user_id, long book_id, int rating) {
-
-
-    }
-
-    public void makeReservation(long user_id, long book_id) {
-
-    }
 
     public static void topTenReservation() {
 
@@ -247,14 +239,26 @@ public class LibraryImpl implements Library {
 
 
 
-    @Override
-    public void topTwentyPublication() {
+    public static void topTwentyPublication() {
+        ClosedHashImpl<YA,AuthorYearPublications> publishPerYear = new ClosedHashImpl<>(20000);
         for (Book book: books){
             for (Author author: book.getAuthors()){
-                AuthorYearPublications ayp = new AuthorYearPublications(author, book.getOriginal_publication_year())
+                int year = book.getOriginal_publication_year();
+                YA ya = new YA(author,year);
+                AuthorYearPublications ayp = new AuthorYearPublications(author, year);
+
+                if(!publishPerYear.contains(ya)) {
+                    publishPerYear.put(ya,ayp);
+                }
+                publishPerYear.get(ya).setPublications(publishPerYear.get(ya).getPublications()+1);
+                System.out.println(ayp.getPublications());
+                }
+
+
+
             }
-        }
+        System.out.println(publishPerYear.getSize());
     }
-
-
 }
+
+
