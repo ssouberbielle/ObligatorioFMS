@@ -1,6 +1,3 @@
-package Sort;
-
-
 public class BubbleSort {
     public static <T extends Comparable<T>>void bubbleSort(T arr[]) {
         int n = arr.length;

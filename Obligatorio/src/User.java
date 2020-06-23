@@ -59,18 +59,20 @@ public class User implements Comparable<User> {
         return this.getRatingAvg() - o.getRatingAvg();
     }
 
+
     @Override
-    public int compareTo(User o) {
-        return 0;
+    public int compareTo(User o){
+        return this.ratings.getSize() - o.ratings.getSize();
     }
 }
 
 class UserCompByRatings extends User {
-    public UserCompByRatings(long userId){
+    public UserCompByRatings(long userId) {
         super(userId);
     }
+
     @Override
-    public int compareTo(User o){
-        return super.ratings.getSize()-o.ratings.getSize();
+    public int compareTo(User o) {
+        return 0;
     }
 }

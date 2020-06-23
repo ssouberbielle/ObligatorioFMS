@@ -1,13 +1,10 @@
 import LinkedList.LinkedList;
-import Sort.BubbleSort;
 import Sort.Merge;
-import Sort.Sorting;
 import hash.ClosedHashImpl;
 import nodo.Wrapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import nodo.Node;
-import javax.imageio.stream.ImageInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -274,10 +271,10 @@ public class LibraryImpl implements Library {
         int size = languages.filledBuckets();
         // Todo hasta aca es para saber si existe algun valor particular
         LinkedList<Wrapper<String>> language = new LinkedList<Wrapper<String>>();
-        Node(Wrapper<String)
-        language.addFirst() = new Wrapper<String>("espanol");
-        language[0].setValue(3);
-        System.out.println(language[0].getValue());
+        //Node(Wrapper<String)
+        //language.addFirst() = new Wrapper<String>("espanol");
+       // language[0].setValue(3);
+        //System.out.println(language[0].getValue());
 
 
            /* int counter = 0;
