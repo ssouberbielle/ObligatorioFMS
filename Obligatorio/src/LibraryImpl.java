@@ -1,6 +1,7 @@
 import LinkedList.LinkedList;
 import Sort.Merge;
 import hash.ClosedHashImpl;
+import nodo.Node;
 import nodo.Wrapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -176,13 +177,13 @@ public class LibraryImpl implements Library {
         int a = 1;
         int num = 0;
         for (User persona : users) {
-            personas[num++] = persona;
+            personas[num++] = persona;// llenar vector personas con los usuarios
         }
-        Sorting.mergeSort(personas, personas.length);
+        Sorting.mergeSort(personas, personas.length); // ordenamos por cantidad de rating
         for (int i = personas.length - 1; i > personas.length - 11; i--) {
             index[a - 1] = personas[i];
             //System.out.println(index[a - 1].getRatings().getSize()); // verifico que el sort funciona
-            a++;
+            a++; // ponemos los ultimos 10 en index
         }
 
         int suma = 0;
@@ -257,20 +258,13 @@ public class LibraryImpl implements Library {
         for (Book book : books) {
             System.out.println(book.getReserveNum());
         }
+        //LanguageTimes.Consulta4(books, users);
 
 
         //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
 
-        ClosedHashImpl<String, Integer> languages = new ClosedHashImpl<>(40);
-        for (Book u : books) {
-            if (!languages.contains(u.getLanguage())) {
-                languages.put(u.getLanguage(), 0);
 
-            }
-        }
-        int size = languages.filledBuckets();
-        // Todo hasta aca es para saber si existe algun valor particular
-        LinkedList<Wrapper<String>> language = new LinkedList<Wrapper<String>>();
+
         //Node(Wrapper<String)
         //language.addFirst() = new Wrapper<String>("espanol");
        // language[0].setValue(3);
@@ -304,6 +298,8 @@ public class LibraryImpl implements Library {
             }
 
         }
+
+
 
 
 */

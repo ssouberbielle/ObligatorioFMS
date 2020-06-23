@@ -1,12 +1,12 @@
 public class BubbleSort {
-    public static <T extends Comparable<T>>void bubbleSort(T arr[]) {
+    public static void bubbleSort(User arr[]) {
         int n = arr.length;
         for (int i = 0; i < n - 1; i++)
             for (int j = 0; j < n - i - 1; j++)
-                if (arr[j].compareTo(arr[j + 1]) < 0) // si el ratingavg de la izq>der
+                if (arr[j].compareToAvg(arr[j + 1]) < 0) // si el ratingavg de la izq>der
                 {
                     // swapea temp y arr[i]
-                    T temp = arr[j];
+                    User temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
                 }
