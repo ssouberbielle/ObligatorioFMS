@@ -36,7 +36,8 @@ public class LibraryImpl implements Library {
             String[] str = new String[2];
             str =language.split("-", 2);
 
-
+            String[] authorArray = new String[6];
+            authorArray = authors.split(", ");
 
             int year;
             try {
@@ -46,9 +47,17 @@ public class LibraryImpl implements Library {
             }
             long idBook = Long.parseLong(book_id);
 
-            Author author = new Author(authors);
+            LinkedList<Author> authorList = new LinkedList<Author>();
+            for(String a: authorArray){
+                if (a != null) {
+                    Author author = new Author(a);
+                    authorList.addFirst(author);
+
+                }
+            }
+
             if(str[0].equals("en")) str[0] = "eng";
-            Book book = new Book(idBook, isbn, author, year, original_title, title, str[0], image_url);
+            Book book = new Book(idBook, isbn, authorList, year, original_title, title, str[0], image_url);
             books[i] = book;
             i++;
         }
@@ -75,7 +84,6 @@ public class LibraryImpl implements Library {
             if (book != null) user.getReserves().addFirst(book);
 
         }
-        System.out.println("tan los usuarios reservas");
 
 
         Reader in2 = new FileReader("fuentedatos/ratings.csv");
@@ -99,7 +107,7 @@ public class LibraryImpl implements Library {
             user.getRatings().addFirst(rating1);
 
         }
-        System.out.println("tan los usuarios ratings");
+
         return users;
     }
 
@@ -200,7 +208,7 @@ public class LibraryImpl implements Library {
             df.setRoundingMode(RoundingMode.DOWN);
 
         }
-        BubbleSort.bubbleSort(index);
+        Sorting.bubbleSort(index);
         for (User usr : index) {
             System.out.println("ID del usuario: " + usr.getUser_id());
             System.out.println("Cantidad: " + usr.getRatings().getSize());
@@ -235,52 +243,17 @@ public class LibraryImpl implements Library {
 
         }
 
-
-
         //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
 
 
 
-        //Node(Wrapper<String)
-        //language.addFirst() = new Wrapper<String>("espanol");
-       // language[0].setValue(3);
-        //System.out.println(language[0].getValue());
-
-
-           /* int counter = 0;
-            int reservas = 0;
-            for (int c = 0; c < books.length; c++) {
-                for (int b = 0; b < books.length; b++) {
-                    for (String l : languages) {
-                        if (books[b].getLanguage().equals(l)){
-                            counter++;
-                        }
-                    }
-                    if (counter == 0) {
-                        if (books[b].getLanguage().equals(books[b].getLanguage())) {
-                            reservas = reservas + books[b].getReserveNum();
-
-
-                        }
-
-
-
-                    }
-
-
-                }
-
-
-            }
-
-        }
-
-
-
-
-*/
     @Override
     public void topTwentyPublication() {
+        for (Book book: books){
+            for (Author author: book.getAuthors()){
+                AuthorYearPublications ayp = new AuthorYearPublications(author, book.getOriginal_publication_year())
+            }
+        }
     }
 
 

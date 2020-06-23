@@ -1,7 +1,9 @@
+import LinkedList.LinkedList;
+
 public class Book implements Comparable <Book> {
     private long bookid;
     private String isbn;
-    private Author authors;
+    private LinkedList<Author> authors;
     private int original_publication_year;
     private String original_title;
     private String title;
@@ -10,7 +12,7 @@ public class Book implements Comparable <Book> {
 
     private int reserveNum;
 
-    public Book(long bookid, String isbn, Author authors, int original_publication_year, String original_title,
+    public Book(long bookid, String isbn, LinkedList<Author> authors, int original_publication_year, String original_title,
                 String title, String language, String image_url) {
         this.bookid = bookid;
         this.isbn = isbn;
@@ -40,11 +42,11 @@ public class Book implements Comparable <Book> {
         this.isbn = isbn;
     }
 
-    public Author getAuthors() {
+    public LinkedList<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Author authors) {
+    public void setAuthors(LinkedList<Author> authors) {
         this.authors = authors;
     }
 
