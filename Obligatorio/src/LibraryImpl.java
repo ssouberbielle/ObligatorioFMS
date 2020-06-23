@@ -217,31 +217,6 @@ public class LibraryImpl implements Library {
 
     public static void topFiveLanguages() { // FIXME Podemos usar reserveNum en la consulta 1
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-            /*
-/*
-
-
-
-
-
-            /* Primero vamos a crear una lista con todos los idiomas que existen y un numero de reservas (ambos en un objeto)
-               Despues, iteramos por los libros, y comparamos su idioma con los de la lista
-               2 opcoines:
-                    Iterar por los libros y comparar cada libro con un unico idioma (itero por idioma)
-                    Iterar por los libros y comparar cada libro con todos los idiomas hasta que encuentres el correspondiente
-
-               for libros
-                    for idioma in listadeidiomas
-                    if idioma del libro == idioma de lista:
-                    idioma.reserva = idioma.reserva + libro.rserveNum
-
-                    Pasamos los objetos esos de idiomas y reservas en un vector
-                    ordenamos ese vector descendente
-                    Tomamos los 5 valores
-
-             */
-
         int[] count = new int[10000];
         for (User user : users) {
             LinkedList<Book> list = user.getReserves();
@@ -253,12 +228,12 @@ public class LibraryImpl implements Library {
         for (int i = 0; i < vector.length; i++) {
             vector[i] = books[i];
             vector[i].setReserveNum(count[i]);
-            Sorting.mergeSort(books, books.length);
+
         }
-        for (Book book : books) {
-            System.out.println(book.getReserveNum());
+       LanguageTimes.Consulta4(books, users);
+
         }
-        //LanguageTimes.Consulta4(books, users);
+
 
 
         //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
@@ -303,7 +278,6 @@ public class LibraryImpl implements Library {
 
 
 */
-    }
     @Override
     public void topTwentyPublication() {
     }

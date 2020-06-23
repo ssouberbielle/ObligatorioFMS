@@ -16,6 +16,34 @@ public class ClosedHashImpl<Key, Data> implements MyHash<Key, Data>, Iterable<Da
         this.hashTable = new HashEntry[size];
     }
 
+    public static int getLinealCollisionFunction() {
+        return LINEAL_COLLISION_FUNCTION;
+    }
+
+    public static void setLinealCollisionFunction(int linealCollisionFunction) {
+        LINEAL_COLLISION_FUNCTION = linealCollisionFunction;
+    }
+
+    public HashEntry<Key, Data>[] getHashTable() {
+        return hashTable;
+    }
+
+    public void setHashTable(HashEntry<Key, Data>[] hashTable) {
+        this.hashTable = hashTable;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getDefaultCollisionFunction() {
+        return defaultCollisionFunction;
+    }
+
+    public void setDefaultCollisionFunction(int defaultCollisionFunction) {
+        this.defaultCollisionFunction = defaultCollisionFunction;
+    }
+
     @Override
     public void put(Key k, Data t) {
         int attempt = 0;

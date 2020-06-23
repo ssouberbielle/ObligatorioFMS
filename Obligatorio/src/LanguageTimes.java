@@ -1,10 +1,11 @@
 import LinkedList.LinkedList;
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import hash.ClosedHashImpl;
 import hash.HashEntry;
 import nodo.Node;
 import nodo.Wrapper;
 
-public class LanguageTimes implements Comparable <LanguageTimes>{  // FIXME despues hacemos un array de objetos de tipo LanguageTimes
+public class LanguageTimes implements Comparable <LanguageTimes> {  // FIXME despues hacemos un array de objetos de tipo LanguageTimes
 
     private String lang;
     private int reserveNumber;
@@ -25,13 +26,12 @@ public class LanguageTimes implements Comparable <LanguageTimes>{  // FIXME desp
         this.reserveNumber = reserveNumber;
     }
 
-    public LanguageTimes(String lang ){
-        int reserveNumber = 0;
+    public LanguageTimes(String lang) {
+        this.lang = lang;
+        this.reserveNumber = 0;
     }
 
-    public static void Consulta4 (Book[] books, ClosedHashImpl<Long, User> users ) {
-
-        //////////////////////////////////////////////////////////////////////////////////////////////
+    public static void Consulta4(Book[] books, ClosedHashImpl<Long, User> users) {
 
         ClosedHashImpl<String, String> languages = new ClosedHashImpl<>(40);
         for (Book b : books) {
@@ -42,13 +42,17 @@ public class LanguageTimes implements Comparable <LanguageTimes>{  // FIXME desp
         int size = languages.filledBuckets();
 
         // Todo hasta aca es para saber cuantos idiomas son y ver la dimension del array
-        LanguageTimes[] tempArray  = new LanguageTimes[size];
+        LanguageTimes[] tempArray = new LanguageTimes[size];
         int i = 0;
-        for (String idiomas: languages) {
-            LanguageTimes lt = new LanguageTimes(idiomas);
-            tempArray[i] = lt;
-            i++;
+
+        for (HashEntry<String, String> nodo: languages.getHashTable()) {
+            if (nodo != null) {
+                LanguageTimes lt = new LanguageTimes(nodo.getKey());
+                tempArray[i] = lt;
+                i++;
+            }
         }
+
         for (LanguageTimes lts : tempArray) {
             for (Book bk : books) {
                 if (bk.getLanguage().equals(lts.lang)) {
@@ -59,22 +63,18 @@ public class LanguageTimes implements Comparable <LanguageTimes>{  // FIXME desp
         }
         Sorting.mergeSort(tempArray, tempArray.length);
 
-
-
-        //
+        for (int language = tempArray.length - 1; language > tempArray.length - 6; language--) {
+            System.out.println("Código del idioma " + tempArray[language].getLang());
+            System.out.println("Cantidad " + tempArray[language].getReserveNumber());
+            System.out.println("\n");
 
 
         }
-
+    }
 
 
     @Override
     public int compareTo(LanguageTimes o) {
         return this.reserveNumber - o.reserveNumber;
     }
-
-
-    //LinkedList<Wrapper<String>> language = new LinkedList<Wrapper<String>>();
-        //Node<LinkedList<Wrapper<String>>> node = new Node<LinkedList<Wrapper<String>>>()
-    }
-
+}
