@@ -47,6 +47,7 @@ public class LibraryImpl implements Library {
             long idBook = Long.parseLong(book_id);
 
             Author author = new Author(authors);
+            if(str[0].equals("en")) str[0] = "eng";
             Book book = new Book(idBook, isbn, author, year, original_title, title, str[0], image_url);
             books[i] = book;
             i++;
