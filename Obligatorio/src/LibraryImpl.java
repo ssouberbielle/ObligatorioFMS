@@ -1,12 +1,8 @@
 import LinkedList.LinkedList;
 import Sort.Merge;
 import hash.ClosedHashImpl;
-import nodo.Node;
-import nodo.Wrapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -17,9 +13,9 @@ import java.text.DecimalFormat;
 public class LibraryImpl implements Library {
 
     private static Book[] books = new Book[10000];
-    private static ClosedHashImpl<Long, User> users = new ClosedHashImpl<Long, User>(54000); // antes 40000 y no andaba
+    private static ClosedHashImpl<Long, User> users = new ClosedHashImpl<Long, User>(54000);
 
-    public static Book[] loadBooks() throws IOException, FileNotFoundException {
+    public static Book[] loadBooks() throws IOException {
         int i = 0;
         Reader in = new FileReader("fuentedatos/books.csv");
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
@@ -105,25 +101,20 @@ public class LibraryImpl implements Library {
             }
             Book book = books[(int) idBook2 - 1];
             user.getRatings().addFirst(rating1);
-
         }
-
         return users;
     }
 
 
     public static void topTenReservation() {
-
         int[] count = new int[10000];
         for (User usr : users) {
-            LinkedList<Book> list = usr.getReserves(); //lista de reservas de usuario actual
-            for (Book book : list) { //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
-
+            LinkedList<Book> list = usr.getReserves(); // lista de reservas de usuario actual
+            for (Book book : list) {
                 count[(int) (book.getBook_id() - 1)]++; // suma 1 a la posicio
-                // n correspondiente a la del libro en el vector de libros
+                                                        // n correspondiente a la del libro en el vector de libros
             }
         }
-
         int[] index = count.clone();
         Merge.mergeSort(index, index.length);
         for (int i = count.length - 1; i > count.length - 11; i--) {
@@ -137,19 +128,16 @@ public class LibraryImpl implements Library {
                     System.out.println("\n");
                 }
             }
-
         }
-
     }
 
     public static void topTwentyRating() {
         int[] count = new int[10000];
         for (User usr : users) {
             LinkedList<Rating> list = usr.getRatings(); //lista de reservas de usuario actual
-            for (Rating rating : list) { //tira required type Book y provided long. Deberiamos guardar el libro entero en reservas
-
-                count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio
-                // n correspondiente a la del libro en el vector de libros
+            for (Rating rating : list) {
+                count[(int) (rating.getBook_id() - 1)]++; // suma 1 a la posicio n correspondiente
+                                                          // a la del libro en el vector de libros
             }
         }
 
@@ -166,9 +154,7 @@ public class LibraryImpl implements Library {
                     System.out.println("\n");
                 }
             }
-
         }
-
     }
 
     public static void topTenReviews() {
@@ -183,7 +169,6 @@ public class LibraryImpl implements Library {
         Sorting.mergeSort(personas, personas.length); // ordenamos por cantidad de rating
         for (int i = personas.length - 1; i > personas.length - 11; i--) {
             index[a - 1] = personas[i];
-            //System.out.println(index[a - 1].getRatings().getSize()); // verifico que el sort funciona
             a++; // ponemos los ultimos 10 en index
         }
 
@@ -209,12 +194,9 @@ public class LibraryImpl implements Library {
             System.out.println("Rating promedio: " + (df.format(usr.getRatingAvg())));
             System.out.println("\n");
         }
-
-
     }
 
-
-    public static void topFiveLanguages() { // FIXME Podemos usar reserveNum en la consulta 1
+    public static void topFiveLanguages() {
 
         int[] count = new int[10000];
         for (User user : users) {
@@ -233,9 +215,6 @@ public class LibraryImpl implements Library {
 
     }
 
-    //Todo eso fue solo para tener la cantidad de reservas de cada libro y guardarlo en el atributo
-
-
     public static void topTwentyPublication() {
         boolean trece = false;
         ClosedHashImpl<YA, AuthorYearPublications> publishPerYear = new ClosedHashImpl<>(20000);
@@ -251,16 +230,23 @@ public class LibraryImpl implements Library {
                 } else {
                     ayp.setPublications(ayp.getPublications() + 1);
                 }
-                System.out.println(ayp.getPublications());
-                if (ayp.getPublications() == 13)
-                    trece = true;
-
             }
-
-
         }
-        if (trece) System.out.println("Hola");
-        System.out.println(publishPerYear.getSize());
+
+        int num = 0;
+        AuthorYearPublications[] twenty = new AuthorYearPublications[publishPerYear.getSize()];
+
+        for (AuthorYearPublications ayp : publishPerYear) {
+            twenty[num++] = ayp; // llenar vector twenty con los ayp
+        }
+
+        Sorting.mergeSort(twenty, twenty.length); // ordenamos por cantidad de publicaciones por ano por autor
+
+        for (int i = twenty.length - 1; i > twenty.length - 21; i--) {
+            System.out.println("Autor: "+ twenty[i].getAuthor().getName());
+            System.out.println("Año de publicacion: " + twenty[i].getYear());
+            System.out.println("Cantidad: " + twenty[i].getPublications());
+        }
     }
 }
 

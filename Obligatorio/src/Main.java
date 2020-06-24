@@ -22,7 +22,6 @@ public class Main {
                     long start = System.currentTimeMillis();
                     Book[] books = LibraryImpl.loadBooks();
                     LibraryImpl.loadUsers();
-                    //System.out.println(books[0].getAuthors().getName()); Verifico que se obtienen los autores.
                     long finish = System.currentTimeMillis();
                     System.out.println("Carga de datos realizada, tiempo de ejecución de la carga: " + (finish-start));
                     break;
@@ -37,16 +36,34 @@ public class Main {
                     respuesta = scanner.nextInt();
                     switch (respuesta) {
                         case 1:
+                            long start1 = System.currentTimeMillis();
                             LibraryImpl.topTenReservation();
+                            long finish1 = System.currentTimeMillis();
+                            System.out.println("Tiempo de ejecución: " + (finish1-start1));
                             break;
                         case 2:
+                            long start2 = System.currentTimeMillis();
                             LibraryImpl.topTwentyRating();
+                            long finish2 = System.currentTimeMillis();
+                            System.out.println("Tiempo de ejecución: " + (finish2-start2));
                             break;
-                        case 3: LibraryImpl.topTenReviews();
+                        case 3:
+                            long start3 = System.currentTimeMillis();
+                            LibraryImpl.topTenReviews();
+                            long finish3 = System.currentTimeMillis();
+                            System.out.println("Tiempo de ejecución: " + (finish3-start3));
                             break;
-                        case 4: LibraryImpl.topFiveLanguages();
+                        case 4:
+                            long start4 = System.currentTimeMillis();
+                            LibraryImpl.topFiveLanguages();
+                            long finish4 = System.currentTimeMillis();
+                            System.out.println("Tiempo de ejecución: " + (finish4-start4));
                             break;
-                        case 5: LibraryImpl.topTwentyPublication();
+                        case 5:
+                            long start5 = System.currentTimeMillis();
+                            LibraryImpl.topTwentyPublication();
+                            long finish5 = System.currentTimeMillis();
+                            System.out.println("Tiempo de ejecución: " + (finish5-start5));
                             break;
                         case 6:
                             run = false;

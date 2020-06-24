@@ -23,7 +23,7 @@ public class YA {
         this.author = author;
     }
 
-    @Override
+    @Override // los objetos que son una key de un hash deben implementar un hashCode
     public int hashCode() {
         return author.getName().length() + Math.abs(year);
 
